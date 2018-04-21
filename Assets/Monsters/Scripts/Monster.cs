@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster : MonoBehaviour {
-
+    
+    [SerializeField] private bool Alive;
     [SerializeField] private float speed;
     [SerializeField] private Reactor target;
     [SerializeField] private ParticleSystem particlesPrefab;
@@ -14,6 +15,7 @@ public class Monster : MonoBehaviour {
     [SerializeField] private float SlowTimeLength;
     [SerializeField] private float SlowSpeedMult;
     [SerializeField] private float [] DamageMultIndex;
+    [SerializeField] bool Rising;
     
     private void FixedUpdate()
     {
@@ -21,7 +23,33 @@ public class Monster : MonoBehaviour {
         UpdateSlow();
     }
 
+    public void SetTarget(Reactor target) {
+        this.target = target;
+    }
+
+    public void StartMovement() {
+        this.gameObject.SetActive(true);
+        Rising = true;
+        Alive = true;
+        StartCoroutine(FakeRisingComplete());
+    }
+
+    // Coroutine to fake out the animation callback for the rising
+    // animation completing.
+    IEnumerator FakeRisingComplete() {
+        yield return new WaitForSeconds(1);
+        Rising = false;
+    }
+
+    public void RisingComplete() {
+        Rising = false;
+    }
+
     private void UpdateMovement() {
+        if(Rising) {
+            return;
+        }
+
         Vector3 toTargetDir = (target.gameObject.transform.position - transform.position).normalized;
         toTargetDir.y = 0;
         toTargetDir.Normalize();
@@ -39,8 +67,12 @@ public class Monster : MonoBehaviour {
         SlowedStartTime = Time.time;
     }
 
-    public bool CanHit(ShootingMode type) {
-        return DamageMultIndex[(int)type] > 0;
+    public bool isAlive() {
+        return Alive;
+    }
+
+    public bool CanBeHit(ShootingMode type) {
+        return DamageMultIndex[(int)type] > 0 && Alive;
     }
     
     public void TakeDamage( ShootingMode type, int upgradeLevel, float impactDelay) {
@@ -48,7 +80,8 @@ public class Monster : MonoBehaviour {
 
         Health -= damage;
         if (Health <= 0) {
-            DeathAnimation();
+            Alive = false;
+            DeathAnimation(impactDelay);
         }
     }
 
@@ -65,10 +98,19 @@ public class Monster : MonoBehaviour {
         }
     }
 
+    private void DeathAnimation(float delay) {
+        StartCoroutine(DeathRoutine(delay));
+    }
+
+    IEnumerator DeathRoutine(float delay) {
+        yield return new WaitForSeconds(delay);
+        DeathAnimation();
+    }
+
     private void DeathAnimation() {
         var effect = GameObject.Instantiate(particlesPrefab, transform.position, particlesPrefab.transform.rotation);
         effect.GetComponent<ParticleSystem>().Play();
         Destroy(effect, 5.0f);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

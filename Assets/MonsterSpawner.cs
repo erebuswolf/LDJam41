@@ -3,32 +3,90 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour {
+
     [SerializeField]
-    GameObject Monster1;
-    [SerializeField]
-    GameObject Monster2;
-    [SerializeField]
-    GameObject Monster3;
-    [SerializeField]
-    GameObject Monster4;
+    private List<Monster> MonsterPrefabs;
 
     // Number of monsters in each wave.
     [SerializeField]
-    int[] MonsterCounts;
-    
+    private int[] MonsterCounts;
+
     // Seconds Delay between monsters in each wave.
     [SerializeField]
-    float[] BetweenMonsterDelays;
+    private float[] BetweenMonsterDelays;
 
     // Seconds Delay between waves.
     [SerializeField]
-    float[] BetweenWaveDelays;
+    private float[] BetweenWaveDelays;
 
+    [SerializeField]
+    private List<List<Monster>> Monsters = new List<List<Monster>>();
+
+    [SerializeField]
+    private int currentWave;
+
+    [SerializeField]
+    private Reactor target;
+    
     // Use this for initialization
-    void Start () {
-		
-	}
-	
+    void Start() {
+        currentWave = 0;
+        SpawnAllMonsters();
+        StartCoroutine(SpawnRoutine());
+    }
+
+    void SpawnAllMonsters() {
+        Monsters.Clear();
+        for (int i = 0; i < MonsterCounts.Length; i++) {
+            Monsters.Add(new List<Monster>());
+            for(int j = 0; j < MonsterCounts[i]; j++) {
+                Monster monster = GameObject.Instantiate<Monster>(MonsterPrefabs[i]);
+                monster.gameObject.transform.position = this.transform.position;
+                monster.gameObject.SetActive(false);
+                monster.SetTarget(target);  
+                Monsters[i].Add(monster);
+            }
+        }
+    }
+
+    IEnumerator SpawnRoutine() {
+        for (int waveNumber = 0; waveNumber < MonsterCounts.Length; waveNumber++) {
+            // Wait the time between the waves
+            yield return new WaitForSeconds(BetweenWaveDelays[waveNumber]);
+            currentWave = waveNumber;
+
+            for (int monsterNumber = 0; monsterNumber < MonsterCounts[waveNumber]; monsterNumber++) {
+                // Wait the time between monsters
+                yield return new WaitForSeconds(BetweenMonsterDelays[waveNumber]);
+                Monsters[waveNumber][monsterNumber].StartMovement();
+            }
+            // don't spawn the next monster wave till the previous wave is eliminated.
+            bool monstersAlive = true;
+            while(monstersAlive) {
+                foreach(Monster m in Monsters[waveNumber]) {
+                    monstersAlive = false;
+                    if (m.isAlive()) {
+                        monstersAlive = true;
+                        break;
+                    }
+                }
+                yield return null;
+            }
+        }
+    }
+
+    public List<Monster> GetTargetableMonsters() {
+        List<Monster> outputList = new List<Monster>();
+        foreach (List<Monster> l in Monsters) {
+            foreach (Monster m in l) {
+                if (m.gameObject.activeInHierarchy && m.isAlive()) {
+                    outputList.Add(m);
+                }
+            }
+        }
+        return outputList;
+    }
+    
 	// Update is called once per frame
 	void Update () {
 		
