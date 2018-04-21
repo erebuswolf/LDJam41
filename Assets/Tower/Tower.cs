@@ -39,7 +39,3 @@ public class Tower : MonoBehaviour {
         return null;
     }
 }
-
-/* Placeholder code until we have a real Monster class */
-public class Monster {
-}
