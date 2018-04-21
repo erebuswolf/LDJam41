@@ -9,22 +9,40 @@ public enum ShootingMode {
 }
 
 public class Tower : MonoBehaviour {
-
     private const int radiusBase = 150;
     private const int radiusSlow = 175;
     private const int radiusAntiAir = 200;
 
-    private int shootingRadius;
+    private float [] ImpactDelay = new float[] {.3f, .3f, .3f};
+
+    private float[] ShotDelay = new float[] { .3f, .3f, .3f };
+
+    private float shootingRadius;
     private ShootingMode mode;
+    private int[] upgradAmmount = new int[3];
+
+    private MonsterSpawner monsterSpawner;
 
 	// Use this for initialization
 	void Start () {
         shootingRadius = radiusBase;
         mode = ShootingMode.ShootingModeNormal;
-	}
+        for (int i = 0; i < upgradAmmount.Length; i++) {
+            upgradAmmount[i] = 1;
+        }
+
+        monsterSpawner = FindObjectOfType<MonsterSpawner>();
+
+    }
+
+    public void ChangeShootingMode(ShootingMode mode) {
+        this.mode = mode;
+        // Run animation to change guns
+        // disable shooting till animation finishes.
+    }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         // Call FindTarget
 	}
 
@@ -36,6 +54,30 @@ public class Tower : MonoBehaviour {
         // Check to see if any monsters have entered the shooting radius
         // Finds closest monster. TODO: figure out what to do if positions are the same
         // Allowed to return nil
-        return null;
+        List<Monster> monsters = monsterSpawner.GetTargetableMonsters();
+        float bestDist = -1;
+        Monster target = null;
+        foreach(Monster m in monsters) {
+            // Logic here to find best monster;
+            Vector3 thisPosition = this.transform.position;
+            thisPosition.y = 0;
+
+            Vector3 monsterPosition = m.transform.position;
+            monsterPosition.y = 0;
+            float dist = (monsterPosition - thisPosition).magnitude;
+            if (dist <= shootingRadius && bestDist == -1 || dist < bestDist) {
+                target = m;
+            }
+        }
+        if (bestDist == -1) {
+            return null;
+        }
+        return target;
+    }
+
+    void ShootTarget(Monster Target) {
+        if (Target.CanBeHit(mode)) {
+            Target.TakeDamage(mode, upgradAmmount[(int)mode], ImpactDelay[(int)mode]);
+        }
     }
 }

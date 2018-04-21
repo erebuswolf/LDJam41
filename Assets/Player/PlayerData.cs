@@ -32,6 +32,10 @@ public class PlayerData : MonoBehaviour {
         Debug.LogWarning("Spending Resources We don't have!!");
     }
 	
+    public void SetLastSpawnPoint(SpawnPoint Other) {
+        LastSpawnPoint = Other;
+    }
+
 	// Update is called once per frame
 	void Update () {
 		

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CenterOfMass : MonoBehaviour {
     [SerializeField]
-    Rigidbody myRigidbody;
+    private Rigidbody myRigidbody;
 
     [SerializeField]
-    Vector3 centerOfMass;
+    private Vector3 centerOfMass;
 
 	// Use this for initialization
 	void Start () {
