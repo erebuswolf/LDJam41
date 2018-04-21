@@ -36,6 +36,7 @@ public class Tower : MonoBehaviour {
         // Check to see if any monsters have entered the shooting radius
         // Finds closest monster. TODO: figure out what to do if positions are the same
         // Allowed to return nil
+        return null;
     }
 }
 
