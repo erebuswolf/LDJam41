@@ -5,12 +5,14 @@ using UnityEngine;
 public class Monster : MonoBehaviour {
 
     [SerializeField] private float speed;
-    [SerializeField] private Transform target;
+    [SerializeField] private Reactor target;
     [SerializeField] private ParticleSystem particlesPrefab;
+    [SerializeField] private int Damage;
 
     private void Update()
     {
-        Vector3 toTargetDir = (target.position - transform.position).normalized;
+        Vector3 toTargetDir = (target.gameObject.transform.position - transform.position).normalized;
+        toTargetDir.y = 0;
         transform.position += speed * Time.deltaTime * toTargetDir;
     }
 
@@ -21,7 +23,8 @@ public class Monster : MonoBehaviour {
             var effect = GameObject.Instantiate(particlesPrefab, transform.position, particlesPrefab.transform.rotation);
             effect.GetComponent<ParticleSystem>().Play();
             Destroy(effect, 5.0f);
-            Destroy(gameObject);            
+            Destroy(gameObject);
+            target.RecieveHit(Damage);
         }
     }
 }
