@@ -1,7 +1,9 @@
 fileFormatVersion: 2
-guid: 7fbc30c82506db34da0e29258a1f3634
-timeCreated: 1524296932
-licenseType: Free
+
+guid: b0391985d94e9f847be883a7a778c715
+timeCreated: 1524296402
+licenseType: Pro
+
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -54,10 +56,12 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
-    importBlendShapes: 0
-    importCameras: 0
-    importLights: 0
+
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -76,7 +80,9 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
+
+  importAnimation: 1
+
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

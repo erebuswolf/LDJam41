@@ -25,6 +25,21 @@ public class Tower : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+        // Call FindTarget
 	}
+
+    // see if any monsters are within radius
+    // if one is, send notification to Monster class that that monster has been shot
+    // run shoot animation towards target monster
+
+    Monster FindTarget() {
+        // Check to see if any monsters have entered the shooting radius
+        // Finds closest monster. TODO: figure out what to do if positions are the same
+        // Allowed to return nil
+        return null;
+    }
+}
+
+/* Placeholder code until we have a real Monster class */
+public class Monster {
 }
