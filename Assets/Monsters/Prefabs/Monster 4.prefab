@@ -53,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1024746194498590}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 136.7, y: 50, z: -237.7}
+  m_LocalPosition: {x: 0, y: 0, z: -404}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4450859351552692}
@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813623052357794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
   m_LocalScale: {x: 50, y: 100, z: 30}
   m_Children: []
   m_Father: {fileID: 4096458234333304}
@@ -140,7 +140,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 50, y: 100, z: 30}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 50, z: 0}
 --- !u!114 &114668020874284590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,3 +157,12 @@ MonoBehaviour:
   particlesPrefab: {fileID: 198083200931462206, guid: 0d8133bed5fa10c4994ac6b6772b43d6,
     type: 2}
   Damage: 8
+  Health: 20
+  Slowed: 0
+  SlowedStartTime: 0
+  SlowTimeLength: 1
+  SlowSpeedMult: 0.5
+  DamageMultIndex:
+  - 1
+  - 1
+  - 0.3

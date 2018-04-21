@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Reactor : MonoBehaviour {
     [SerializeField]
-    private int health;
+    private float health;
 
 	// Use this for initialization
 	void Start () {
@@ -16,11 +16,11 @@ public class Reactor : MonoBehaviour {
 		
 	}
 
-    public int GetHealth() {
+    public float GetHealth() {
         return health;
     }
 
-    public void RecieveHit(int healthLoss) {
+    public void RecieveHit(float healthLoss) {
         health -= healthLoss;
         // A game manager or something else should query the health state of this object.
         // And manage game loss.
