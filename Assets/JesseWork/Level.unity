@@ -160,7 +160,7 @@ Prefab:
     - target: {fileID: 114967645629739242, guid: bb156eb2a3bb88a4fa6b6b532716f0a2,
         type: 2}
       propertyPath: speed
-      value: 80
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: scalingMode
@@ -2401,7 +2401,7 @@ Prefab:
     - target: {fileID: 114967645629739242, guid: bb156eb2a3bb88a4fa6b6b532716f0a2,
         type: 2}
       propertyPath: speed
-      value: 80
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: scalingMode
@@ -2563,7 +2563,7 @@ Prefab:
     - target: {fileID: 114967645629739242, guid: bb156eb2a3bb88a4fa6b6b532716f0a2,
         type: 2}
       propertyPath: speed
-      value: 80
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: scalingMode
@@ -3316,7 +3316,7 @@ Prefab:
     - target: {fileID: 114967645629739242, guid: bb156eb2a3bb88a4fa6b6b532716f0a2,
         type: 2}
       propertyPath: speed
-      value: 80
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: scalingMode
@@ -5972,7 +5972,7 @@ Prefab:
     - target: {fileID: 114967645629739242, guid: bb156eb2a3bb88a4fa6b6b532716f0a2,
         type: 2}
       propertyPath: speed
-      value: 80
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: scalingMode
@@ -9202,7 +9202,7 @@ Prefab:
     - target: {fileID: 114967645629739242, guid: bb156eb2a3bb88a4fa6b6b532716f0a2,
         type: 2}
       propertyPath: speed
-      value: 80
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: scalingMode
@@ -10363,7 +10363,7 @@ Prefab:
     - target: {fileID: 114967645629739242, guid: bb156eb2a3bb88a4fa6b6b532716f0a2,
         type: 2}
       propertyPath: speed
-      value: 80
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: scalingMode

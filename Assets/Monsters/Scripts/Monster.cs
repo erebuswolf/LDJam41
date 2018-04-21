@@ -9,10 +9,11 @@ public class Monster : MonoBehaviour {
     [SerializeField] private ParticleSystem particlesPrefab;
     [SerializeField] private int Damage;
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector3 toTargetDir = (target.gameObject.transform.position - transform.position).normalized;
         toTargetDir.y = 0;
+        toTargetDir.Normalize();
         transform.position += speed * Time.deltaTime * toTargetDir;
     }
 
