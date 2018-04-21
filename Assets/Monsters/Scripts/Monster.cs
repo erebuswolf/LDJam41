@@ -108,6 +108,7 @@ public class Monster : MonoBehaviour {
     }
 
     private void DeathAnimation() {
+        Alive = false;
         var effect = GameObject.Instantiate(particlesPrefab, transform.position, particlesPrefab.transform.rotation);
         effect.GetComponent<ParticleSystem>().Play();
         Destroy(effect, 5.0f);
