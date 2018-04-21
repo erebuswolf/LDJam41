@@ -77,11 +77,9 @@ public class MonsterSpawner : MonoBehaviour {
 
     public List<Monster> GetTargetableMonsters() {
         List<Monster> outputList = new List<Monster>();
-        foreach (List<Monster> l in Monsters) {
-            foreach (Monster m in l) {
-                if (m.gameObject.activeInHierarchy && m.isAlive()) {
-                    outputList.Add(m);
-                }
+        foreach (Monster m in Monsters[currentWave]) {
+            if (m.gameObject.activeInHierarchy && m.isAlive()) {
+                outputList.Add(m);
             }
         }
         return outputList;
