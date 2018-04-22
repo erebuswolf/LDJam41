@@ -130,7 +130,8 @@ public class Tower : MonoBehaviour {
         return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
     }
 
-    private void BuyUpgrade (PlayerData data, ShootingMode modeToUpgrade) {
+    private void BuyUpgrade (ShootingMode modeToUpgrade) {
+        PlayerData data = FindObjectOfType<PlayerData>();
         int cost = ResourceCosts[(int)modeToUpgrade];
         int resources = data.GetResources();
         if (resources >= cost) {
@@ -144,27 +145,26 @@ public class Tower : MonoBehaviour {
             return;
         }
 
-        PlayerData data = FindObjectOfType<PlayerData>();
         ShootingMode modeToModify;
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             modeToModify = ShootingMode.ShootingModeNormal;
             if (isShiftHeld()) {
-                BuyUpgrade(data, modeToModify);
+                BuyUpgrade(modeToModify);
             } else {
                 ChangeShootingMode(modeToModify);
             }
         } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
             modeToModify = ShootingMode.ShootingModeSlow;
             if (isShiftHeld()) {
-                BuyUpgrade(data, modeToModify);
+                BuyUpgrade(modeToModify);
             } else {
                 ChangeShootingMode(modeToModify);
             }
         } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
             modeToModify = ShootingMode.ShootingModeAntiAir;
             if (isShiftHeld()) {
-                BuyUpgrade(data, modeToModify);
+                BuyUpgrade(modeToModify);
             } else {
                 ChangeShootingMode(modeToModify);
             }
