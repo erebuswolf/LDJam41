@@ -17,6 +17,8 @@ public class Tower : MonoBehaviour {
 
     private float[] ShotDelay = new float[] { 5f, 5f, 5f };
 
+    private int[] ResourceCosts = new int[] { 1, 2, 3 };
+
     private float lastTimeShot = 0;
 
     private float shootingRadius;
@@ -128,28 +130,43 @@ public class Tower : MonoBehaviour {
         return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
     }
 
+    private void BuyUpgrade (PlayerData data, ShootingMode modeToUpgrade) {
+        int cost = ResourceCosts[(int)modeToUpgrade];
+        int resources = data.GetResources();
+        if (resources >= cost) {
+            upgradeAmmount[(int)modeToUpgrade]++;
+            data.SpendResources(cost);
+        }
+    }
+
     private void HandleCarInteractions() {
         if (!CarInteracting) {
             return;
         }
 
+        PlayerData data = FindObjectOfType<PlayerData>();
+        ShootingMode modeToModify;
+
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            modeToModify = ShootingMode.ShootingModeNormal;
             if (isShiftHeld()) {
-
+                BuyUpgrade(data, modeToModify);
             } else {
-                ChangeShootingMode(ShootingMode.ShootingModeNormal);
+                ChangeShootingMode(modeToModify);
             }
-        } else if (Input.GetKeyDown(KeyCode.Alpha2)) { 
+        } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            modeToModify = ShootingMode.ShootingModeSlow;
             if (isShiftHeld()) {
-
+                BuyUpgrade(data, modeToModify);
             } else {
-                ChangeShootingMode(ShootingMode.ShootingModeSlow);
+                ChangeShootingMode(modeToModify);
             }
         } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            modeToModify = ShootingMode.ShootingModeAntiAir;
             if (isShiftHeld()) {
-
+                BuyUpgrade(data, modeToModify);
             } else {
-                ChangeShootingMode(ShootingMode.ShootingModeAntiAir);
+                ChangeShootingMode(modeToModify);
             }
         }
     }
