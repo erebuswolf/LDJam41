@@ -10017,17 +10017,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000013904118194, guid: 6577377bae7db18429e690f8f8f57881,
     type: 2}
   m_PrefabInternal: {fileID: 2077930091}
---- !u!54 &1815920384 stripped
-Rigidbody:
-  m_PrefabParentObject: {fileID: 54000011937158112, guid: 6577377bae7db18429e690f8f8f57881,
-    type: 2}
-  m_PrefabInternal: {fileID: 2077930091}
---- !u!4 &1815920385 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000012934762246, guid: 6577377bae7db18429e690f8f8f57881,
-    type: 2}
-  m_PrefabInternal: {fileID: 2077930091}
---- !u!114 &1815920386
+--- !u!114 &1815920382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -10035,11 +10025,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1815920381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c181c8cb52f62b146980680d7cb5ca4b, type: 3}
+  m_Script: {fileID: 11500000, guid: ff8f65fd46e2e7f4da333558e450dd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRigidbody: {fileID: 1815920384}
-  centerOfMass: {x: 0, y: -5, z: 0}
+  maxForwardAcceleration: 25
+  maxReverseAcceleration: 20
+  maxForwardSpeed: 120
+  maxReverseSpeed: 90
+  maxBrakingForce: 30
+  brakingSpeedCoeff: 1
+  airFrictionCoeff: 0.2
+  LowTurnAngularSpeed: 2.3
+  HighTurnAngularSpeed: 0.8
+  deadTurnSpeed: 5
+  LowTurnSpeed: 15
+  HighTurnSpeed: 40
+  minSkidSpeed: 45
+  skidSpeedCoeff: 20
+  skiddingDurationSec: 3
+--- !u!4 &1815920385 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000012934762246, guid: 6577377bae7db18429e690f8f8f57881,
+    type: 2}
+  m_PrefabInternal: {fileID: 2077930091}
 --- !u!1001 &1820979034
 Prefab:
   m_ObjectHideFlags: 0
@@ -11270,7 +11278,41 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114000011571154704, guid: 6577377bae7db18429e690f8f8f57881,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013910545014, guid: 6577377bae7db18429e690f8f8f57881,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012245543110, guid: 6577377bae7db18429e690f8f8f57881, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014136951468, guid: 6577377bae7db18429e690f8f8f57881, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013161874076, guid: 6577377bae7db18429e690f8f8f57881, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010635655032, guid: 6577377bae7db18429e690f8f8f57881, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64000012779670410, guid: 6577377bae7db18429e690f8f8f57881,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 54000011937158112, guid: 6577377bae7db18429e690f8f8f57881, type: 2}
+    - {fileID: 114000011571154704, guid: 6577377bae7db18429e690f8f8f57881, type: 2}
+    - {fileID: 114000013910545014, guid: 6577377bae7db18429e690f8f8f57881, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6577377bae7db18429e690f8f8f57881, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2092851728
