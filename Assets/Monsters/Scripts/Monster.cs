@@ -16,11 +16,16 @@ public class Monster : MonoBehaviour {
     [SerializeField] private float SlowSpeedMult;
     [SerializeField] private float [] DamageMultIndex;
     [SerializeField] bool Rising;
-    
+    [SerializeField] private Transform HeadHeight;
+
     private void FixedUpdate()
     {
         UpdateMovement();
         UpdateSlow();
+    }
+
+    public Vector3 GetHeadPosition() {
+        return HeadHeight.position;
     }
 
     public void SetTarget(Reactor target) {

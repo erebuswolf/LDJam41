@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1346342302986088}
   m_IsPrefabParent: 1
+--- !u!1 &1035114001203852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4667637351050736}
+  m_Layer: 0
+  m_Name: HeadTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1346342302986088
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +43,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1456126694824972
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +72,7 @@ Transform:
   m_LocalScale: {x: 25, y: 30, z: 100}
   m_Children: []
   m_Father: {fileID: 4178453306592610}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4178453306592610
 Transform:
@@ -69,8 +84,22 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -255.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4667637351050736}
   - {fileID: 4175249735161542}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4667637351050736
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1035114001203852}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 18.3, z: 30.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4178453306592610}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23014940138906954
@@ -154,7 +183,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Alive: 0
   speed: 15
-  riseSpeed: 15
   target: {fileID: 0}
   particlesPrefab: {fileID: 198083200931462206, guid: 0d8133bed5fa10c4994ac6b6772b43d6,
     type: 2}
@@ -168,3 +196,5 @@ MonoBehaviour:
   - 1
   - 1
   - 0
+  Rising: 0
+  HeadHeight: {fileID: 4667637351050736}

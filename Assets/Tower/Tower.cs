@@ -13,53 +13,71 @@ public class Tower : MonoBehaviour {
     private const int radiusSlow = 175;
     private const int radiusAntiAir = 200;
 
-    private float [] ImpactDelay = new float[] {.3f, .3f, .3f};
+    private float[] ImpactDelay = new float[] { .3f, .3f, .3f };
 
-    private float[] ShotDelay = new float[] { .3f, .3f, .3f };
+    private float[] ShotDelay = new float[] { 5f, 5f, 5f };
+
+    private float lastTimeShot = 0;
 
     private float shootingRadius;
     private ShootingMode mode;
     private int[] upgradeAmmount = new int[3];
 
-    private bool shootingEnabled = false;
+    private bool Activated;
 
-    private Turret turret;
+    private bool CarInteracting;
+
+    [SerializeField]
+    private TurretController turret;
+
 
     private MonsterSpawner monsterSpawner;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         shootingRadius = radiusBase;
         mode = ShootingMode.ShootingModeNormal;
-        shootingEnabled = true;
         for (int i = 0; i < upgradeAmmount.Length; i++) {
             upgradeAmmount[i] = 1;
         }
-        turret = FindObjectOfType<Turret>();
         monsterSpawner = FindObjectOfType<MonsterSpawner>();
+
+        //TODO: take this function call out so they start out disabled;
+        ActivateTower();
     }
 
     public void ChangeShootingMode(ShootingMode mode) {
         this.mode = mode;
-        shootingEnabled = false;
-        turret.SwitchShootingModeAnimation();
-        shootingEnabled = true;
+        turret.SwitchShootingModeAnimation(mode);
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    void Update() {
+        HandleCarInteractions();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate() {
         Monster target = FindTarget();
+        Turret t = turret.getActiveTurret();
+        if (t == null) {
+            return;
+        }
+
+        t.TrackTarget(target);
         if (target) {
-            turret.TrackTarget(target);
             ShootTarget(target);
         }
-	}
+    }
+
+    public void ActivateTower() {
+        Activated = true;
+    }
 
     Monster FindTarget() {
         List<Monster> monsters = monsterSpawner.GetTargetableMonsters();
         float bestDist = -1;
         Monster target = null;
-        foreach(Monster m in monsters) {
+        foreach (Monster m in monsters) {
             // Logic here to find best monster;
             Vector3 thisPosition = this.transform.position;
             thisPosition.y = 0;
@@ -79,9 +97,60 @@ public class Tower : MonoBehaviour {
     }
 
     void ShootTarget(Monster Target) {
-        if (Target.CanBeHit(mode) && shootingEnabled) {
-            turret.ShootTargetAnimation(mode);
-            Target.TakeDamage(mode, upgradeAmmount[(int)mode], ImpactDelay[(int)mode]);
+        Turret t = turret.getActiveTurret();
+
+        if (Time.time - lastTimeShot < ShotDelay[(int)mode] ||
+            !Target.CanBeHit(mode) || turret.isSwitching() || t == null) {
+            return;
+        }
+        
+        t.ShootTargetAnimation(mode);
+        Target.TakeDamage(mode, upgradeAmmount[(int)mode], ImpactDelay[(int)mode]);
+        lastTimeShot = Time.time;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        PlayerData data = other.GetComponent<PlayerData>();
+        if (data) {
+            CarInteracting = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        PlayerData data = other.GetComponent<PlayerData>();
+        
+        if (data) {
+            CarInteracting = false;
+        }
+    }
+
+    private bool isShiftHeld() {
+        return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+    }
+
+    private void HandleCarInteractions() {
+        if (!CarInteracting) {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            if (isShiftHeld()) {
+
+            } else {
+                ChangeShootingMode(ShootingMode.ShootingModeNormal);
+            }
+        } else if (Input.GetKeyDown(KeyCode.Alpha2)) { 
+            if (isShiftHeld()) {
+
+            } else {
+                ChangeShootingMode(ShootingMode.ShootingModeSlow);
+            }
+        } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            if (isShiftHeld()) {
+
+            } else {
+                ChangeShootingMode(ShootingMode.ShootingModeAntiAir);
+            }
         }
     }
 }
