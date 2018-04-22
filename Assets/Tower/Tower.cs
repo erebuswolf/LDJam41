@@ -23,6 +23,7 @@ public class Tower : MonoBehaviour {
 
     private bool shootingEnabled = false;
 
+    [SerializeField]
     private Turret turret;
 
     private MonsterSpawner monsterSpawner;
@@ -35,15 +36,12 @@ public class Tower : MonoBehaviour {
         for (int i = 0; i < upgradeAmmount.Length; i++) {
             upgradeAmmount[i] = 1;
         }
-        turret = FindObjectOfType<Turret>();
         monsterSpawner = FindObjectOfType<MonsterSpawner>();
     }
 
     public void ChangeShootingMode(ShootingMode mode) {
         this.mode = mode;
-        shootingEnabled = false;
         turret.SwitchShootingModeAnimation();
-        shootingEnabled = true;
     }
 
 	void Update() {
@@ -54,7 +52,7 @@ public class Tower : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.Space))
         {
-            ChangeShootingMode(mode);
+            ChangeShootingMode(ShootingMode.ShootingModeSlow);
         }
         Monster target = FindTarget();
         if (target) {

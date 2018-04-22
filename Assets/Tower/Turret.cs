@@ -8,7 +8,6 @@ public class Turret : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        this.gameObject.SetActive(true);
         switching = false;
 	}
 	
@@ -17,34 +16,42 @@ public class Turret : MonoBehaviour {
 		
 	}
 
-    public void SwitchShootingModeAnimation () {
+    public void SwitchShootingModeAnimation() {
+        if (switching) {
+            return;
+        }
         switching = true;
         StartCoroutine(SwitchAnimation());
     }
 
     IEnumerator SwitchAnimation () {
-        Vector3 raisedPos = transform.InverseTransformPoint(this.gameObject.transform.position);
+        Vector3 raisedPos = this.gameObject.transform.localPosition;
         Vector3 loweredPos = new Vector3(0, 0, 0); // Move it down
         float speed = 2;
-        float delta = speed * Time.deltaTime;
+        float delta = 0;
         Debug.LogFormat("Delta: {0}", delta);
 
         Vector3 move;
         // Lower the turret
         while (delta < 1)
         {
+            delta += speed * Time.deltaTime;
+            delta = Mathf.Clamp01(delta);
+
             move = Vector3.MoveTowards(raisedPos, loweredPos, delta);
-            this.gameObject.transform.position = transform.TransformPoint(move);
+            this.gameObject.transform.localPosition = move;
             yield return null;
         }
 
-        //yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(.5f);
 
         // Raise the turret back up
-        while (delta < 1)
+        while (delta > 0)
         {
-            move = Vector3.MoveTowards(loweredPos, raisedPos, delta);
-            this.gameObject.transform.position = transform.TransformPoint(move);
+            delta -= speed * Time.deltaTime;
+            delta = Mathf.Clamp01(delta);
+            move = Vector3.MoveTowards(raisedPos, loweredPos, delta);
+            this.gameObject.transform.localPosition = move;
             yield return null;
         }
 
