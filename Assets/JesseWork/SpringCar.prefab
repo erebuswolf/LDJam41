@@ -644,6 +644,11 @@ MonoBehaviour:
   MinTorqSupresser: 0.66
   LeftSideShock: {fileID: 4660739526638162}
   RightSideShock: {fileID: 4170705523194236}
+  airborn: 0
+  GroundDrag: 1.5
+  GroundADrag: 1.5
+  AirDrag: 0.05
+  AirADrag: 0.05
 --- !u!114 &114729762774174852
 MonoBehaviour:
   m_ObjectHideFlags: 1

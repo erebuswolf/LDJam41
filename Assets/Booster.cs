@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Booster : MonoBehaviour {
     [SerializeField] private Vector3 boostDirection;
-	// Use this for initialization
-	void Start () {
+
+    [SerializeField] private float boostMag;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -14,11 +17,12 @@ public class Booster : MonoBehaviour {
 		
 	}
     
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerStay(Collider other) {
         // If other is the player have them set their last spawn point.
         Suspension car = other.GetComponent<Suspension>();
         if (car != null) {
-
+            Debug.LogWarning("car applying boost");
+            car.ApplyBoost(boostDirection.normalized, boostMag);
         }
     }
 }
