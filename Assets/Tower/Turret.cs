@@ -11,6 +11,10 @@ public class Turret : MonoBehaviour {
 
     private Quaternion startRotation;
 
+    private bool Activated;
+
+    [SerializeField] AudioSource LaserShot;
+
 	// Use this for initialization
 	void Start () {
         startRotation = transform.rotation;
@@ -29,6 +33,10 @@ public class Turret : MonoBehaviour {
         }
         switching = true;
         StartCoroutine(SwitchAnimation());
+    }
+
+    public void ActivateTurret() {
+        Activated = true;
     }
 
     IEnumerator SwitchAnimation () {
@@ -70,7 +78,7 @@ public class Turret : MonoBehaviour {
             float speed = Time.deltaTime * lookSpeed;
             Quaternion goalRotation = startRotation;
             Quaternion currentRotation = gameObject.transform.rotation;
-            if (trackedMonster == null || !trackedMonster.isAlive()) {
+            if (trackedMonster == null || !trackedMonster.isAlive() || !Activated) {
                 Debug.LogWarning("no target");
             } else {
                 Debug.LogWarning("tracking monster");
@@ -93,6 +101,6 @@ public class Turret : MonoBehaviour {
     }
 
     public void ShootTargetAnimation(ShootingMode mode) {
-        
+        LaserShot.Play();
     }
 }

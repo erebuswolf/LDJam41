@@ -15,13 +15,17 @@ public class Tower : MonoBehaviour {
 
     private float [] ImpactDelay = new float[] {.3f, .3f, .3f};
 
-    private float[] ShotDelay = new float[] { .3f, .3f, .3f };
+    private float[] ShotDelay = new float[] { 5f, 5f, 5f };
+
+    private float lastTimeShot = 0;
 
     private float shootingRadius;
     private ShootingMode mode;
     private int[] upgradeAmmount = new int[3];
 
     private bool shootingEnabled = false;
+
+    private bool Activated;
 
     [SerializeField]
     private Turret turret;
@@ -37,6 +41,9 @@ public class Tower : MonoBehaviour {
             upgradeAmmount[i] = 1;
         }
         monsterSpawner = FindObjectOfType<MonsterSpawner>();
+
+        //TODO: take this function call out so they start out disabled;
+        ActivateTower();
     }
 
     public void ChangeShootingMode(ShootingMode mode) {
@@ -57,11 +64,14 @@ public class Tower : MonoBehaviour {
         Monster target = FindTarget();
         turret.TrackTarget(target);
         if (target) {
-            
-
-            //ShootTarget(target);
+            ShootTarget(target);
         }
 	}
+
+    public void ActivateTower() {
+        Activated = true;
+        turret.ActivateTurret();
+    }
 
     Monster FindTarget() {
         List<Monster> monsters = monsterSpawner.GetTargetableMonsters();
@@ -87,9 +97,13 @@ public class Tower : MonoBehaviour {
     }
 
     void ShootTarget(Monster Target) {
-        if (Target.CanBeHit(mode) && shootingEnabled) {
-            turret.ShootTargetAnimation(mode);
-            Target.TakeDamage(mode, upgradeAmmount[(int)mode], ImpactDelay[(int)mode]);
+        if (Time.time - lastTimeShot < ShotDelay[(int)mode] ||
+            !Target.CanBeHit(mode) || !shootingEnabled) {
+            return;
         }
+
+        turret.ShootTargetAnimation(mode);
+        Target.TakeDamage(mode, upgradeAmmount[(int)mode], ImpactDelay[(int)mode]);
+        lastTimeShot = Time.time;
     }
 }
