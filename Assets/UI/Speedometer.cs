@@ -17,7 +17,7 @@ public class Speedometer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float speed = data.GetSpeedForUI();
-        if (speed >1 || speed < 0) {
+        if (speed > 1 || speed < 0) {
             Debug.LogWarning("INVALIDE SPEED GIVEN TO UI");
         }
         float rot = minRot - (minRot - maxRot) * speed;
