@@ -33,6 +33,10 @@ public class Suspension : MonoBehaviour {
     [SerializeField] private float SideSpringConst = 1.0f;
     [SerializeField] private float SideMaxSpringForce = 40.0f;
 
+    [SerializeField] private float ForceMultiplier = 40f;
+    [SerializeField] private float TorqMultiplier = 3f;
+    [SerializeField] private float MinTorqSupresser = .7f;
+
     [SerializeField] private Transform LeftSideShock;
     [SerializeField] private Transform RightSideShock;
     
@@ -138,7 +142,7 @@ public class Suspension : MonoBehaviour {
         // If wheels aren't touching the ground we can't drive.
         bool applyNoForces = lastCompressionPoints.Count == 0;
 
-        float force = 40 * linearInput;
+        float force = ForceMultiplier * linearInput;
         ForceVector *= force;
         if (linearInput != 0 && !applyNoForces) {
             //Debug.LogWarningFormat("vel mult {0} {1}", myBody.velocity.magnitude, 1 - (Mathf.Clamp(myBody.velocity.sqrMagnitude, 0, maxVel * maxVel) / (maxVel * maxVel)));
@@ -151,8 +155,8 @@ public class Suspension : MonoBehaviour {
             if ((transform.worldToLocalMatrix * myBody.velocity).z < -5) {
                 angularInput = -angularInput;
             }
-            float torque = angularInput*3;
-            myBody.AddRelativeTorque(new Vector3(0, torque * Mathf.Max(.5f ,1/(1+ Mathf.Abs(localVel.z))), 0), ForceMode.Acceleration);
+            float torque = angularInput* TorqMultiplier;
+            myBody.AddRelativeTorque(new Vector3(0, torque * Mathf.Max(MinTorqSupresser, 1/(1+ Mathf.Abs(localVel.z))), 0), ForceMode.Acceleration);
         }
         if (!applyNoForces) {
             Vector3 rightVel = localVel;
@@ -174,7 +178,7 @@ public class Suspension : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate () {
         UpdateShocks();
-        UpdateSideShocks();
+        //UpdateSideShocks();
         HandleInput();
     }
 }

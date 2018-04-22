@@ -4116,6 +4116,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 114478233539817028, guid: d17309516ca692347b08e15b70ed3ebc,
+        type: 2}
+      propertyPath: MinTorqSupresser
+      value: 0.66
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
   m_IsPrefabParent: 0
