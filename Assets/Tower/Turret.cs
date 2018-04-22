@@ -35,13 +35,17 @@ public class Turret : MonoBehaviour {
         StartCoroutine(SwitchAnimation());
     }
 
+    public bool isSwitching() {
+        return switching;
+    }
+
     public void ActivateTurret() {
         Activated = true;
     }
 
     IEnumerator SwitchAnimation () {
-        Vector3 raisedPos = this.gameObject.transform.localPosition;
-        Vector3 loweredPos = new Vector3(0, 0, 0); // Move it down
+        Vector3 raisedPos = this.gameObject.transform.position;
+        Vector3 loweredPos = this.gameObject.transform.position + Vector3.down * 30; // Move it down
         float speed = 2;
         float delta = 0;
         Debug.LogFormat("Delta: {0}", delta);
@@ -53,8 +57,9 @@ public class Turret : MonoBehaviour {
             delta += speed * Time.deltaTime;
             delta = Mathf.Clamp01(delta);
 
-            move = Vector3.MoveTowards(raisedPos, loweredPos, delta);
-            this.gameObject.transform.localPosition = move;
+            move = Vector3.Lerp(raisedPos, loweredPos, delta);
+            Debug.LogFormat("Delta: {0}, {1}, {2}, {3}", move , delta, raisedPos, loweredPos);
+            this.gameObject.transform.position = move;
             yield return null;
         }
 
@@ -65,8 +70,8 @@ public class Turret : MonoBehaviour {
         {
             delta -= speed * Time.deltaTime;
             delta = Mathf.Clamp01(delta);
-            move = Vector3.MoveTowards(raisedPos, loweredPos, delta);
-            this.gameObject.transform.localPosition = move;
+            move = Vector3.Lerp(raisedPos, loweredPos, delta);
+            this.gameObject.transform.position = move;
             yield return null;
         }
 
@@ -79,9 +84,7 @@ public class Turret : MonoBehaviour {
             Quaternion goalRotation = startRotation;
             Quaternion currentRotation = gameObject.transform.rotation;
             if (trackedMonster == null || !trackedMonster.isAlive() || !Activated) {
-                Debug.LogWarning("no target");
             } else {
-                Debug.LogWarning("tracking monster");
                 goalRotation = Quaternion.LookRotation(
                     trackedMonster.GetHeadPosition()
                     - gameObject.transform.position);
