@@ -1035,6 +1035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackedMonster: {fileID: 0}
+  lowered: 0
   LaserShot: {fileID: 82588174514696544}
 --- !u!114 &114819560854814638
 MonoBehaviour:
@@ -1048,6 +1049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackedMonster: {fileID: 0}
+  lowered: 0
   LaserShot: {fileID: 82445158599119408}
 --- !u!114 &114875328738732364
 MonoBehaviour:
@@ -1061,4 +1063,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackedMonster: {fileID: 0}
+  lowered: 0
   LaserShot: {fileID: 82481723209157744}
