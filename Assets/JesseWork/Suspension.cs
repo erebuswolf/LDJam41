@@ -16,6 +16,8 @@ public class CompressionPoint {
 public class Suspension : MonoBehaviour {
 
     [SerializeField]  Rigidbody myBody;
+
+    [SerializeField] PlayerData playerData;
     
     [Header("Physics")]
 
@@ -140,7 +142,8 @@ public class Suspension : MonoBehaviour {
             //Debug.LogWarningFormat("vel mult {0} {1}", myBody.velocity.magnitude, 1 - (Mathf.Clamp(myBody.velocity.sqrMagnitude, 0, maxVel * maxVel) / (maxVel * maxVel)));
             myBody.AddForce(ForceVector, ForceMode.Acceleration);
         }
-
+        float normVel = Mathf.Abs(localVel.z / 50f);
+        playerData.SetSpeedForUI(normVel + Random.Range(normVel-(normVel*.02f), normVel + (normVel * .02f))-normVel);
 
         if (angularInput != 0) {
             if ((transform.worldToLocalMatrix * myBody.velocity).z < -5) {
@@ -156,11 +159,11 @@ public class Suspension : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        Debug.LogWarningFormat("impulse {0}", collision.impulse);
+      //  Debug.LogWarningFormat("impulse {0}", collision.impulse);
 
         foreach (ContactPoint contact in collision.contacts) {
-            print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
-            Debug.DrawRay(contact.point, contact.normal, Color.white);
+            //print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
+           // Debug.DrawRay(contact.point, contact.normal, Color.white);
  //           myBody.AddForceAtPosition(contact.normal * collision.impulse)
         }
     }

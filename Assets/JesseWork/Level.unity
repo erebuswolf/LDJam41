@@ -2187,6 +2187,12 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300120, guid: f9ad719b66dbf4e4a966f7bea750bdcb, type: 3}
+--- !u!114 &1301879015 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114729762774174852, guid: d17309516ca692347b08e15b70ed3ebc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1793074965}
+  m_Script: {fileID: 11500000, guid: ddbf2f42f693cd248b53d5152e73e9a1, type: 3}
 --- !u!1 &1311411052 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100064, guid: f9ad719b66dbf4e4a966f7bea750bdcb, type: 3}
@@ -2822,6 +2828,11 @@ Prefab:
       value: 
       objectReference: {fileID: 13400000, guid: bcbcc5056244e574183f35340b861b91,
         type: 2}
+    - target: {fileID: 114478233539817028, guid: d17309516ca692347b08e15b70ed3ebc,
+        type: 2}
+      propertyPath: playerData
+      value: 
+      objectReference: {fileID: 1301879015}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
   m_IsPrefabParent: 0
