@@ -2067,6 +2067,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 832830751}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &844094878 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114282787108285222, guid: dd84391c7a0b62e40bcb110b9786511f,
+    type: 2}
+  m_PrefabInternal: {fileID: 573493233}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &850614430
 GameObject:
   m_ObjectHideFlags: 0
@@ -2890,6 +2896,23 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300120, guid: f9ad719b66dbf4e4a966f7bea750bdcb, type: 3}
+--- !u!1 &1269374385 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1301519674020242, guid: dd84391c7a0b62e40bcb110b9786511f,
+    type: 2}
+  m_PrefabInternal: {fileID: 573493233}
+--- !u!114 &1269374387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269374385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f57b35bebac3d44ba27bd67d9603b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthImage: {fileID: 844094878}
 --- !u!1 &1311411052 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100064, guid: f9ad719b66dbf4e4a966f7bea750bdcb, type: 3}
@@ -4115,11 +4138,6 @@ Prefab:
     - target: {fileID: 4347080274807846, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
       propertyPath: m_RootOrder
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114478233539817028, guid: d17309516ca692347b08e15b70ed3ebc,
-        type: 2}
-      propertyPath: MinTorqSupresser
-      value: 0.66
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
