@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
         return !Mathf.Approximately(0.0f, f);
     }
 
-    private void Update ()
+    private void FixedUpdate ()
     {
         // Input & State
         float linearInput = Input.GetAxis("Vertical");
