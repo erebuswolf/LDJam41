@@ -48,7 +48,7 @@ public class SimpleCar : MonoBehaviour {
             //myBody.angularVelocity = ;
         }
 
-        foreach ( Physics.RaycastAll(new Ray(this.transform.position, transform.localToWorldMatrix * Vector3.down))) {
+        foreach (RaycastHit hit in Physics.RaycastAll(new Ray(this.transform.position, transform.localToWorldMatrix * Vector3.down))) {
 
         }
 
