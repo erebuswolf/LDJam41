@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
 
     [Header("Linear Movement - Thrust + Braking")]
 
-    [SerializeField] private float maxForwardAcceleration = 25.0f;
-    [SerializeField] private float maxReverseAcceleration = 20.0f;
+    [SerializeField] private float maxForwardAcceleration = 15.0f;
+    [SerializeField] private float maxReverseAcceleration = 10.0f;
 
     [SerializeField] private float maxForwardSpeed = 120.0f;
     [SerializeField] private float maxReverseSpeed = 90.0f;
 
-    [SerializeField] private float maxBrakingForce = 30.0f;
+    [SerializeField] private float maxBrakingForce = 25.0f;
     [SerializeField] private float brakingSpeedCoeff = 1.0f;
 
     [SerializeField] private float airFrictionCoeff = 0.2f;
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour {
     [Header("Angular Movement - Steering")]
 
     [SerializeField] private float minSkidSpeed = 45.0f; // Higher than HighTurnSpeed
-    [SerializeField] private float skidSpeedCoeff = 20.0f;
+    [SerializeField] private float skidSpeedCoeff = 1.0f;
     [SerializeField] private float skiddingDurationSec = 3.0f;
 
     // Skid effect across frames
@@ -40,10 +41,13 @@ public class PlayerController : MonoBehaviour {
     private Vector3 skidDir;
     private bool didSkid;
 
+    private new Rigidbody rigidbody;
+
     #region Speedometer & Physics Simulation
 
     public float acceleration { get; private set; }
     public float speed { get; private set; }
+    public float turningOrientation { get; private set; }
 
     private float GetBrakingForce(bool isBraking)
     {
@@ -64,12 +68,21 @@ public class PlayerController : MonoBehaviour {
         return !Mathf.Approximately(0.0f, f);
     }
 
-    private void Update ()
+    private void Awake()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
     {
         // Input & State
         float linearInput = Input.GetAxis("Vertical");
         float angularInput = Input.GetAxis("Horizontal");
         bool isHandbraking = Input.GetKey(KeyCode.Space);
+        turningOrientation = (angularInput != 0.0f) ? Mathf.Abs(angularInput) / angularInput : 0.0f;
+
+        speed = Mathf.Sign(Vector3.Dot(rigidbody.velocity, transform.forward)) * rigidbody.velocity.magnitude;
+        speed = Mathf.Clamp(speed, -maxReverseSpeed, maxForwardSpeed);
 
         bool isBraking = (isHandbraking || (speed * linearInput < 0.0f));
         bool isTurningFast = (Mathf.Abs(angularInput) > 0.75f) && (Mathf.Abs(speed) > minSkidSpeed);
@@ -124,8 +137,8 @@ public class PlayerController : MonoBehaviour {
 
         // Update
         acceleration = thrust + brake + drag;
-        speed = Mathf.Clamp(speed + dt * acceleration, -maxReverseSpeed, maxForwardSpeed);
-        transform.position += (speed * dt + 0.5f * acceleration * sqrdt) * transform.forward + (0.5f * skid * sqrdt) * skidDir;
+        speed = Mathf.Clamp((speed + dt * acceleration), - maxReverseSpeed, maxForwardSpeed);
+        rigidbody.velocity = ((speed * dt + 0.5f * acceleration * sqrdt) * transform.forward + (0.5f * skid * sqrdt) * skidDir) / dt /* rigidbody doesn't take dt */;
         transform.Rotate(new Vector3(0.0f, turnCoeff * angularInput, 0.0f));
     }
 }
