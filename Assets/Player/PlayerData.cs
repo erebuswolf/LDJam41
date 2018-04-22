@@ -8,7 +8,7 @@ public class PlayerData : MonoBehaviour {
     private SpawnPoint LastSpawnPoint;
 
     [SerializeField]
-    private float resources;
+    private int resources;
     
     [SerializeField]
     private float speed;
@@ -18,11 +18,11 @@ public class PlayerData : MonoBehaviour {
 
     }
 
-    public void AddResources(float resourcesAdded) {
+    public void AddResources(int resourcesAdded) {
         this.resources += resourcesAdded;
     }
     
-    public float GetResources() {
+    public int GetResources() {
         return resources;
     }
 
@@ -31,7 +31,7 @@ public class PlayerData : MonoBehaviour {
         return speed;
     }
 
-    public void SpendResources(float resourcesSpent) {
+    public void SpendResources(int resourcesSpent) {
         if (this.resources >= resourcesSpent) {
             this.resources -= resourcesSpent;
             return;

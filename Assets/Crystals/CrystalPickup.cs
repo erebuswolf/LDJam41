@@ -5,7 +5,7 @@ using UnityEngine;
 public class CrystalPickup : MonoBehaviour {
 
     [SerializeField]
-    private float Value;
+    private int Value;
 
 	// Use this for initialization
 	void Start () {

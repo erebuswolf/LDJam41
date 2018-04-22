@@ -17,11 +17,15 @@ public class Tower : MonoBehaviour {
 
     private float[] ShotDelay = new float[] { 5f, 5f, 5f };
 
+    private int[] ResourceCosts = new int[] { 1, 2, 3 };
+
+    private int[] upgradeAmmount = new int[3] { 0, 0, 0 };
+    private int upgradeMax = 3;
+
     private float lastTimeShot = 0;
 
     private float shootingRadius;
     private ShootingMode mode;
-    private int[] upgradeAmmount = new int[3];
 
     private bool Activated;
 
@@ -37,9 +41,6 @@ public class Tower : MonoBehaviour {
     void Start() {
         shootingRadius = radiusBase;
         mode = ShootingMode.ShootingModeNormal;
-        for (int i = 0; i < upgradeAmmount.Length; i++) {
-            upgradeAmmount[i] = 1;
-        }
         monsterSpawner = FindObjectOfType<MonsterSpawner>();
 
         //TODO: take this function call out so they start out disabled;
@@ -128,28 +129,43 @@ public class Tower : MonoBehaviour {
         return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
     }
 
+    private void BuyUpgrade (ShootingMode modeToUpgrade) {
+        PlayerData data = FindObjectOfType<PlayerData>();
+        int cost = ResourceCosts[(int)modeToUpgrade];
+        int resources = data.GetResources();
+        if ((resources >= cost) && (upgradeAmmount[(int)modeToUpgrade] < upgradeMax)) {
+            upgradeAmmount[(int)modeToUpgrade]++;
+            data.SpendResources(cost);
+        }
+    }
+
     private void HandleCarInteractions() {
         if (!CarInteracting) {
             return;
         }
 
+        ShootingMode modeToModify;
+
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            modeToModify = ShootingMode.ShootingModeNormal;
             if (isShiftHeld()) {
-
+                BuyUpgrade(modeToModify);
             } else {
-                ChangeShootingMode(ShootingMode.ShootingModeNormal);
+                ChangeShootingMode(modeToModify);
             }
-        } else if (Input.GetKeyDown(KeyCode.Alpha2)) { 
+        } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            modeToModify = ShootingMode.ShootingModeSlow;
             if (isShiftHeld()) {
-
+                BuyUpgrade(modeToModify);
             } else {
-                ChangeShootingMode(ShootingMode.ShootingModeSlow);
+                ChangeShootingMode(modeToModify);
             }
         } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            modeToModify = ShootingMode.ShootingModeAntiAir;
             if (isShiftHeld()) {
-
+                BuyUpgrade(modeToModify);
             } else {
-                ChangeShootingMode(ShootingMode.ShootingModeAntiAir);
+                ChangeShootingMode(modeToModify);
             }
         }
     }
