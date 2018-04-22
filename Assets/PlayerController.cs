@@ -1,110 +1,131 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public const float maxA = 20.0f;
-    public const float minA = 12.0f;
+    [Header("Linear Movement - Thrust + Braking")]
 
-    public const float maxV = 200.0f;
-    public const float minV = 120.0f;
+    [SerializeField] private float maxForwardAcceleration = 25.0f;
+    [SerializeField] private float maxReverseAcceleration = 20.0f;
 
-    public const float posFriction = 1.1f * (maxA / maxV);
-    public const float negFriction = 1.1f * (minA / minV);
-    public const float minDrag = 2.5f;
+    [SerializeField] private float maxForwardSpeed = 120.0f;
+    [SerializeField] private float maxReverseSpeed = 90.0f;
 
-    public const float LowTurnAngularSpeed = 2.0f;
-    public const float HighTurnAngularSpeed = 1.0f;
-    public const float LowTurnSpeed = 20.0f;
-    public const float HighTurnSpeed = 65.0f;
-    public const float minSpeedForTurn = 5.0f;
+    [SerializeField] private float maxBrakingForce = 30.0f;
+    [SerializeField] private float brakingSpeedCoeff = 1.0f;
 
-    public const float minSkidSpeed = 35.0f;
-    public const float skidCoeff = 9.0f;
-    public const float skidEffectSec = 0.3f;
+    [SerializeField] private float airFrictionCoeff = 0.2f;
 
-    public float a;
-    public float v;
+    private float forwardAirFriction;
+    private float reverseAirFriction;
 
-    public Vector3 prevForward;
-    public bool didSkid;
-    public float stopSkiddingTime;
+    [Header("Angular Movement - Steering")]
 
-    // Update is called once per frame
-    void Update () {
+    // More steering control when speed is lower
+    [SerializeField] private float LowTurnAngularSpeed = 2.3f;
+    [SerializeField] private float HighTurnAngularSpeed = 0.8f;
 
-        // Move
-        var thrust = maxA * Input.GetAxis("Vertical");
-        if (thrust < 0.0f)
-        {
-            thrust *= minA / maxA;
-        }
+    // Defines the shape of the steering control graph
+    [SerializeField] private float deadTurnSpeed = 5.0f;
+    [SerializeField] private float LowTurnSpeed = 15.0f;
+    [SerializeField] private float HighTurnSpeed = 40.0f;
 
-        bool isBraking = (Input.GetKey(KeyCode.Space) || (v * thrust < 0.0f));
-        
-        var brake = -Mathf.Sign(v) * (Mathf.Max(Mathf.Abs(v / 1.0f), 30.0f)) * (isBraking ? 1.0f : 0.0f);
-        var drag = -Mathf.Sign(v) * Mathf.Max((thrust == 0.0f)? minDrag :0.0f, ((v > 0.0f)? posFriction : negFriction) * Mathf.Abs(v));
+    [Header("Angular Movement - Steering")]
 
-        a = thrust + brake + drag;
-        v = Mathf.Clamp(v + Time.deltaTime * a, -minV, maxV);
+    [SerializeField] private float minSkidSpeed = 45.0f; // Higher than HighTurnSpeed
+    [SerializeField] private float skidSpeedCoeff = 20.0f;
+    [SerializeField] private float skiddingDurationSec = 3.0f;
 
-        transform.position += (v * Time.deltaTime + 0.5f * a * Time.deltaTime * Time.deltaTime) * transform.forward;
+    // Skid effect across frames
+    private float startToSkidTime;
+    private Vector3 skidDir;
+    private bool didSkid;
 
-        // Turn
-        var turn = Input.GetAxis("Horizontal");
+    #region Speedometer & Physics Simulation
+
+    public float acceleration { get; private set; }
+    public float speed { get; private set; }
+
+    private float GetBrakingForce(bool isBraking)
+    {
+        return BoolToFloat(isBraking) * (-Mathf.Sign(speed) * (Mathf.Max(Mathf.Abs(speed / brakingSpeedCoeff), maxBrakingForce)));
+    }
+
+    #endregion
+
+    // TODO: move to util extension class
+    private static float BoolToFloat(bool b)
+    {
+        return b ? 1.0f : 0.0f;
+    }
+
+    // TODO: move to util extension class
+    private static bool FloatToBool(float f)
+    {
+        return !Mathf.Approximately(0.0f, f);
+    }
+
+    private void Update ()
+    {
+        // Input & State
+        float linearInput = Input.GetAxis("Vertical");
+        float angularInput = Input.GetAxis("Horizontal");
+        bool isHandbraking = Input.GetKey(KeyCode.Space);
+
+        bool isBraking = (isHandbraking || (speed * linearInput < 0.0f));
+        bool isTurningFast = (Mathf.Abs(angularInput) > 0.75f) && (Mathf.Abs(speed) > minSkidSpeed);
+        bool isSkidding = isBraking || isTurningFast;
+
+        float absSpeed = Mathf.Abs(speed);
+        float dt = Time.deltaTime;
+        float sqrdt = dt * dt;
+
+        // Linear Movement
+        float thrust = linearInput * ((linearInput >= 0.0f) ? maxForwardAcceleration : maxReverseAcceleration);
+        float brake =  GetBrakingForce(isBraking);
+        float drag = -airFrictionCoeff * speed;
+
+        // Angular Movement
         var turnCoeff = 0.0f;
-        var absV = Mathf.Abs(v);
-        if (absV < minSpeedForTurn)
+        if (absSpeed < deadTurnSpeed)
         {
             turnCoeff = 0.0f;
         }
-        else if ((minSpeedForTurn < absV) && (absV < LowTurnSpeed))
+        else if ((deadTurnSpeed < absSpeed) && (absSpeed < LowTurnSpeed))
         {
-            turnCoeff = LowTurnAngularSpeed * ((absV - minSpeedForTurn) / LowTurnSpeed);
+            turnCoeff = LowTurnAngularSpeed * ((absSpeed - deadTurnSpeed) / LowTurnSpeed);
         }
-        else if ((LowTurnSpeed < absV) && (absV < HighTurnSpeed))
+        else if ((LowTurnSpeed < absSpeed) && (absSpeed < HighTurnSpeed))
         {
-            turnCoeff = LowTurnAngularSpeed + (HighTurnAngularSpeed - LowTurnAngularSpeed) * (absV - LowTurnSpeed) / (HighTurnSpeed - LowTurnAngularSpeed);
+            turnCoeff = LowTurnAngularSpeed + (HighTurnAngularSpeed - LowTurnAngularSpeed) * (absSpeed - LowTurnSpeed) / (HighTurnSpeed - LowTurnAngularSpeed);
         }
         else
         {
             turnCoeff = HighTurnAngularSpeed;
         }
-        transform.Rotate(new Vector3(0.0f, turnCoeff * turn, 0.0f));
 
+        // Skid Movement       
+        float skid = 0.0f;
+        if (isSkidding && !didSkid)
+        {
+            skidDir = Mathf.Sign(speed) * transform.forward;
+            startToSkidTime = Time.time;
+            didSkid = true;
 
-        // Skid
-        bool isTurningFast = (Mathf.Abs(turn) > 0.8f) && (Mathf.Abs(v) > 1.4f * HighTurnSpeed);
-        var skid = !(isBraking || isTurningFast) ? 0.0f : Mathf.Max(0.0f, skidCoeff * (v - minSkidSpeed));
-        var shouldApplySkidding = ((Time.time - stopSkiddingTime) < skidEffectSec);
-        if (isBraking || isTurningFast)
+        }
+        if ((Time.time - startToSkidTime) > skiddingDurationSec)
         {
-            if (!didSkid)
-            {
-                if (!shouldApplySkidding)
-                {
-                    prevForward = transform.forward;
-                    didSkid = true;
-                }
-            }
-            else
-            {
-                shouldApplySkidding = true;                
-            }
-        } else
-        {
-            if (didSkid)
-            {
-                stopSkiddingTime = Time.time;
-            }
             didSkid = false;
         }
-
-        if (shouldApplySkidding)
+        
+        if (didSkid) // True also if skidding right now
         {
-            transform.position += (0.5f * skid * Time.deltaTime * Time.deltaTime) * prevForward;
+            skid = Mathf.Max(0.0f, skidSpeedCoeff * (absSpeed - minSkidSpeed));
         }
-        Debug.Log(shouldApplySkidding + " " + skid);
+
+        // Update
+        acceleration = thrust + brake + drag;
+        speed = Mathf.Clamp(speed + dt * acceleration, -maxReverseSpeed, maxForwardSpeed);
+        transform.position += (speed * dt + 0.5f * acceleration * sqrdt) * transform.forward + (0.5f * skid * sqrdt) * skidDir;
+        transform.Rotate(new Vector3(0.0f, turnCoeff * angularInput, 0.0f));
     }
 }
