@@ -70,6 +70,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224458573803873756}
+  - component: {fileID: 114607962211395736}
   m_Layer: 5
   m_Name: Spedometer
   m_TagString: Untagged
@@ -547,6 +548,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114607962211395736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178170335349700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baad2c7256b553e478f64f859b9ca64f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  needle: {fileID: 114323432694606602}
+  minRot: 0
+  maxRot: 0
 --- !u!114 &114716580203103142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -901,13 +916,13 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1131682060596454}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7316512, w: 0.6816792}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071685, w: 0.7070451}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 224458573803873756}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 94.05}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.01}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -389, y: -293.2}

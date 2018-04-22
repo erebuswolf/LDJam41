@@ -9,6 +9,9 @@ public class PlayerData : MonoBehaviour {
 
     [SerializeField]
     private float resources;
+    
+    [SerializeField]
+    private float speed;
 
     // Use this for initialization
     void Start() { 
@@ -21,6 +24,11 @@ public class PlayerData : MonoBehaviour {
     
     public float GetResources() {
         return resources;
+    }
+
+    // Returns a float 0-1 for the speed to set in the ui
+    public float GetSpeedForUI() {
+        return speed;
     }
 
     public void SpendResources(float resourcesSpent) {
