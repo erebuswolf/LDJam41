@@ -42,6 +42,7 @@ public class CarOrientation : MonoBehaviour {
     private void OrientAndSnapToGround(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 anchorP3)
     {
         Vector3 normal = Vector3.Cross(p1 - p3, p2 - p3);
+        Debug.LogWarningFormat("normal {0}", normal);
         Debug.DrawRay((p1 + p2 + p3) / 3.0f, normal, Color.cyan);
         if (Vector3.Dot(Vector3.up, normal) > 0.0f)
         {
@@ -50,7 +51,7 @@ public class CarOrientation : MonoBehaviour {
         }
     }
 
-    private void Update () {
+    private void FixedUpdate () {
 
         var zDelta = carLength / 2.0f;
         var yDelta = carHeight / 2.0f;
