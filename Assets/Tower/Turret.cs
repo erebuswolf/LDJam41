@@ -13,4 +13,20 @@ public class Turret : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void SwitchShootingModeAnimation () {
+        // For now, just go up and down
+    }
+
+    public void TurnTurretAnimation () {
+        // Animate to turn at a 90 degree angle
+    }
+
+    public void TrackTarget (Monster target) {
+        
+    }
+
+    public void ShootTargetAnimation(ShootingMode mode) {
+        
+    }
 }

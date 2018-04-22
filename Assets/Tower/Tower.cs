@@ -19,12 +19,11 @@ public class Tower : MonoBehaviour {
 
     private float shootingRadius;
     private ShootingMode mode;
-    private int[] upgradAmmount = new int[3];
+    private int[] upgradeAmmount = new int[3];
 
     private bool shootingEnabled = false;
 
-    [SerializeField] private List<Turret> TurretPrefabs;
-    private List<Turret> Turrets = new List<Turret>();
+    private Turret turret;
 
     private MonsterSpawner monsterSpawner;
 
@@ -33,29 +32,17 @@ public class Tower : MonoBehaviour {
         shootingRadius = radiusBase;
         mode = ShootingMode.ShootingModeNormal;
         shootingEnabled = true;
-        for (int i = 0; i < upgradAmmount.Length; i++) {
-            upgradAmmount[i] = 1;
+        for (int i = 0; i < upgradeAmmount.Length; i++) {
+            upgradeAmmount[i] = 1;
         }
-
+        turret = FindObjectOfType<Turret>();
         monsterSpawner = FindObjectOfType<MonsterSpawner>();
-
-        // create turrets
-        for (int i = 0; i < Turrets.Count; i++) {
-            Turret turret = GameObject.Instantiate<Turret>(TurretPrefabs[i]);
-            turret.gameObject.transform.position = this.transform.position + new Vector3(10, 10, 10);
-            Turrets.Add(turret);
-        }
-
     }
 
     public void ChangeShootingMode(ShootingMode mode) {
         this.mode = mode;
         shootingEnabled = false;
-
-        // animation to lower current type of turret and then raise another one
-        // need to know current active turrent (equiv to curr mode)
-        // turrents are associated with mode type
-
+        turret.SwitchShootingModeAnimation();
         shootingEnabled = true;
     }
 	
@@ -63,18 +50,12 @@ public class Tower : MonoBehaviour {
 	void FixedUpdate () {
         Monster target = FindTarget();
         if (target) {
+            turret.TrackTarget(target);
             ShootTarget(target);
         }
 	}
 
-    // see if any monsters are within radius
-    // if one is, send notification to Monster class that that monster has been shot
-    // run shoot animation towards target monster
-
     Monster FindTarget() {
-        // Check to see if any monsters have entered the shooting radius
-        // Finds closest monster. TODO: figure out what to do if positions are the same
-        // Allowed to return nil
         List<Monster> monsters = monsterSpawner.GetTargetableMonsters();
         float bestDist = -1;
         Monster target = null;
@@ -98,9 +79,9 @@ public class Tower : MonoBehaviour {
     }
 
     void ShootTarget(Monster Target) {
-        
         if (Target.CanBeHit(mode) && shootingEnabled) {
-            Target.TakeDamage(mode, upgradAmmount[(int)mode], ImpactDelay[(int)mode]);
+            turret.ShootTargetAnimation(mode);
+            Target.TakeDamage(mode, upgradeAmmount[(int)mode], ImpactDelay[(int)mode]);
         }
     }
 }
