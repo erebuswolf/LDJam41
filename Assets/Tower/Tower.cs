@@ -21,29 +21,50 @@ public class Tower : MonoBehaviour {
     private ShootingMode mode;
     private int[] upgradAmmount = new int[3];
 
+    private bool shootingEnabled = false;
+
+    [SerializeField] private List<Turret> TurretPrefabs;
+    private List<Turret> Turrets = new List<Turret>();
+
     private MonsterSpawner monsterSpawner;
 
 	// Use this for initialization
 	void Start () {
         shootingRadius = radiusBase;
         mode = ShootingMode.ShootingModeNormal;
+        shootingEnabled = true;
         for (int i = 0; i < upgradAmmount.Length; i++) {
             upgradAmmount[i] = 1;
         }
 
         monsterSpawner = FindObjectOfType<MonsterSpawner>();
 
+        // create turrets
+        for (int i = 0; i < Turrets.Count; i++) {
+            Turret turret = GameObject.Instantiate<Turret>(TurretPrefabs[i]);
+            turret.gameObject.transform.position = this.transform.position + new Vector3(10, 10, 10);
+            Turrets.Add(turret);
+        }
+
     }
 
     public void ChangeShootingMode(ShootingMode mode) {
         this.mode = mode;
-        // Run animation to change guns
-        // disable shooting till animation finishes.
+        shootingEnabled = false;
+
+        // animation to lower current type of turret and then raise another one
+        // need to know current active turrent (equiv to curr mode)
+        // turrents are associated with mode type
+
+        shootingEnabled = true;
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        // Call FindTarget
+        Monster target = FindTarget();
+        if (target) {
+            ShootTarget(target);
+        }
 	}
 
     // see if any monsters are within radius
@@ -67,6 +88,7 @@ public class Tower : MonoBehaviour {
             float dist = (monsterPosition - thisPosition).magnitude;
             if (dist <= shootingRadius && bestDist == -1 || dist < bestDist) {
                 target = m;
+                bestDist = dist;
             }
         }
         if (bestDist == -1) {
@@ -76,7 +98,8 @@ public class Tower : MonoBehaviour {
     }
 
     void ShootTarget(Monster Target) {
-        if (Target.CanBeHit(mode)) {
+        
+        if (Target.CanBeHit(mode) && shootingEnabled) {
             Target.TakeDamage(mode, upgradAmmount[(int)mode], ImpactDelay[(int)mode]);
         }
     }
