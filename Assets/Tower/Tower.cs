@@ -55,9 +55,11 @@ public class Tower : MonoBehaviour {
             ChangeShootingMode(ShootingMode.ShootingModeSlow);
         }
         Monster target = FindTarget();
+        turret.TrackTarget(target);
         if (target) {
-            turret.TrackTarget(target);
-            ShootTarget(target);
+            
+
+            //ShootTarget(target);
         }
 	}
 

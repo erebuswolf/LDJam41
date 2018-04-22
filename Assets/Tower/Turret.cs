@@ -6,9 +6,16 @@ public class Turret : MonoBehaviour {
 
     private bool switching;
 
+    [SerializeField] private Monster trackedMonster;
+    private const float lookSpeed = 300f;
+
+    private Quaternion startRotation;
+
 	// Use this for initialization
 	void Start () {
+        startRotation = transform.rotation;
         switching = false;
+        StartCoroutine(TrackMonster());
 	}
 	
 	// Update is called once per frame
@@ -58,12 +65,31 @@ public class Turret : MonoBehaviour {
         switching = false;
     }
 
+    IEnumerator TrackMonster() {
+        while(true) {
+            float speed = Time.deltaTime * lookSpeed;
+            Quaternion goalRotation = startRotation;
+            Quaternion currentRotation = gameObject.transform.rotation;
+            if (trackedMonster == null || !trackedMonster.isAlive()) {
+                Debug.LogWarning("no target");
+            } else {
+                Debug.LogWarning("tracking monster");
+                goalRotation = Quaternion.LookRotation(
+                    trackedMonster.GetHeadPosition()
+                    - gameObject.transform.position);
+
+            }
+            gameObject.transform.rotation = Quaternion.RotateTowards(currentRotation, goalRotation, speed);
+            yield return null;
+        }
+    }
+
     public void TurnTurretAnimation () {
         // Animate to turn at a 90 degree angle
     }
 
     public void TrackTarget (Monster target) {
-        
+        trackedMonster = target;
     }
 
     public void ShootTargetAnimation(ShootingMode mode) {
