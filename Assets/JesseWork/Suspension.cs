@@ -128,6 +128,10 @@ public class Suspension : MonoBehaviour {
         return avgNormal;
     }
 	
+    public void ApplyBoost(Vector3 direction, float strength) {
+        myBody.AddForce(direction * strength, ForceMode.Acceleration);
+    }
+
     private void HandleInput() {
         // Input & State
         float linearInput = Input.GetAxis("Vertical");
