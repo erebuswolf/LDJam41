@@ -28,7 +28,8 @@ public class Tower : MonoBehaviour {
     private bool CarInteracting;
 
     [SerializeField]
-    private Turret turret;
+    private TurretController turret;
+
 
     private MonsterSpawner monsterSpawner;
 
@@ -46,11 +47,8 @@ public class Tower : MonoBehaviour {
     }
 
     public void ChangeShootingMode(ShootingMode mode) {
-        if (this.mode == mode) {
-            return;
-        }
         this.mode = mode;
-        turret.SwitchShootingModeAnimation();
+        turret.SwitchShootingModeAnimation(mode);
     }
 
     void Update() {
@@ -60,7 +58,12 @@ public class Tower : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         Monster target = FindTarget();
-        turret.TrackTarget(target);
+        Turret t = turret.getActiveTurret();
+        if (t == null) {
+            return;
+        }
+
+        t.TrackTarget(target);
         if (target) {
             ShootTarget(target);
         }
@@ -68,7 +71,6 @@ public class Tower : MonoBehaviour {
 
     public void ActivateTower() {
         Activated = true;
-        turret.ActivateTurret();
     }
 
     Monster FindTarget() {
@@ -95,12 +97,14 @@ public class Tower : MonoBehaviour {
     }
 
     void ShootTarget(Monster Target) {
+        Turret t = turret.getActiveTurret();
+
         if (Time.time - lastTimeShot < ShotDelay[(int)mode] ||
-            !Target.CanBeHit(mode) || turret.isSwitching()) {
+            !Target.CanBeHit(mode) || turret.isSwitching() || t == null) {
             return;
         }
-
-        turret.ShootTargetAnimation(mode);
+        
+        t.ShootTargetAnimation(mode);
         Target.TakeDamage(mode, upgradeAmmount[(int)mode], ImpactDelay[(int)mode]);
         lastTimeShot = Time.time;
     }
