@@ -145,4 +145,13 @@ public class PlayerController : MonoBehaviour {
         rigidbody.angularVelocity = Vector3.zero;
         transform.Rotate(new Vector3(0.0f, turnCoeff * angularInput, 0.0f));
     }
+
+    void OnCollisionEnter(Collision collision) {
+        Debug.LogWarningFormat("impulse {0}", collision.impulse);
+            
+        foreach (ContactPoint contact in collision.contacts) {
+            print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+        }
+    }
 }
