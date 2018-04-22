@@ -138,9 +138,10 @@ public class PlayerController : MonoBehaviour {
         // Update
         acceleration = thrust + brake + drag;
         speed = Mathf.Clamp((speed + dt * acceleration), - maxReverseSpeed, maxForwardSpeed);
-        Vector3 carVel = ((speed * dt) * transform.forward) / dt;// + (0.5f * skid * sqrdt) * skidDir) / dt /* rigidbody doesn't take dt */;
 
-        rigidbody.velocity = carVel;
+        Vector3 fwd = new Vector3(transform.forward.x, 0.0f, transform.forward.z).normalized;
+        rigidbody.velocity = ((speed * dt + 0.5f * acceleration * sqrdt) * fwd /*+ (0.5f * skid * sqrdt) * skidDir*/) / dt /* rigidbody doesn't take dt */;
+
         rigidbody.angularVelocity = Vector3.zero;
         transform.Rotate(new Vector3(0.0f, turnCoeff * angularInput, 0.0f));
     }
