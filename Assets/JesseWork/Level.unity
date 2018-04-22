@@ -2816,18 +2816,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 19
       objectReference: {fileID: 0}
-    - target: {fileID: 1553664604972368, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
-      propertyPath: m_TagString
-      value: Car
-      objectReference: {fileID: 0}
-    - target: {fileID: 1338090330847138, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
-      propertyPath: m_TagString
-      value: Car
-      objectReference: {fileID: 0}
-    - target: {fileID: 1286125112391270, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
-      propertyPath: m_TagString
-      value: Car
-      objectReference: {fileID: 0}
+    - target: {fileID: 65921034037619396, guid: d17309516ca692347b08e15b70ed3ebc,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: bcbcc5056244e574183f35340b861b91,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
   m_IsPrefabParent: 0

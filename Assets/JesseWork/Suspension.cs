@@ -18,12 +18,14 @@ public class Suspension : MonoBehaviour {
     [SerializeField]  Rigidbody myBody;
     
     [Header("Physics")]
+
+    [SerializeField] private float SkidDamping = 40.0f;
+
     [SerializeField] private float SuspensionDist = 2.0f;
     [SerializeField] private float SpringConst = 1.0f;
     [SerializeField] private float MaxSpringForce = 40.0f;
 
     [SerializeField] private List<Transform> ShockLocations;
-
 
     [SerializeField] private float SideSuspensionDist = 2.0f;
     [SerializeField] private float SideSpringConst = 1.0f;
@@ -80,6 +82,12 @@ public class Suspension : MonoBehaviour {
         float springForce = Mathf.Min(SideSpringConst / (leftDist * leftDist), SideMaxSpringForce);
         myBody.AddForceAtPosition(springForce * (transform.localToWorldMatrix * Vector3.right), LeftSideShock.position);
 
+        Vector3 pointingRight = (transform.localToWorldMatrix * Vector3.right) * SideSuspensionDist;
+
+        Vector3 pointingLeft = (transform.localToWorldMatrix * Vector3.left) * SideSuspensionDist;
+
+        Debug.DrawLine(LeftSideShock.position, LeftSideShock.position + pointingLeft, Color.yellow);
+        Debug.DrawLine(RightSideShock.position, RightSideShock.position + pointingRight, Color.yellow);
 
         // Add a force pointed left for the right spring force;
         springForce = Mathf.Min(SideSpringConst / (rightDist * rightDist), SideMaxSpringForce);
@@ -124,6 +132,8 @@ public class Suspension : MonoBehaviour {
         ForceVector = Vector3.ProjectOnPlane(ForceVector, CalcAvgNormal());
         ForceVector.Normalize();
 
+        Vector3 localVel = transform.worldToLocalMatrix * myBody.velocity;
+
         float force = 40 * linearInput;
         ForceVector *= force;
         if (linearInput != 0) {
@@ -131,12 +141,27 @@ public class Suspension : MonoBehaviour {
             myBody.AddForce(ForceVector, ForceMode.Acceleration);
         }
 
+
         if (angularInput != 0) {
-            if ((transform.worldToLocalMatrix * myBody.velocity).z < 0) {
+            if ((transform.worldToLocalMatrix * myBody.velocity).z < -5) {
                 angularInput = -angularInput;
             }
-            float torque = angularInput*2;
-            myBody.AddRelativeTorque(new Vector3(0, torque, 0), ForceMode.Acceleration);
+            float torque = angularInput*3;
+            myBody.AddRelativeTorque(new Vector3(0, torque * Mathf.Max(.5f ,1/(1+ Mathf.Abs(localVel.z))), 0), ForceMode.Acceleration);
+        }
+        
+        Vector3 rightVel = localVel;
+        rightVel.Scale(Vector3.right);
+        myBody.AddRelativeForce(-rightVel * SkidDamping);
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        Debug.LogWarningFormat("impulse {0}", collision.impulse);
+
+        foreach (ContactPoint contact in collision.contacts) {
+            print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+ //           myBody.AddForceAtPosition(contact.normal * collision.impulse)
         }
     }
 
