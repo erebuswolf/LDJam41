@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour {
 
+    private bool switching;
+
 	// Use this for initialization
 	void Start () {
-		
+        this.gameObject.SetActive(true);
+        switching = false;
 	}
 	
 	// Update is called once per frame
@@ -15,7 +18,37 @@ public class Turret : MonoBehaviour {
 	}
 
     public void SwitchShootingModeAnimation () {
-        // For now, just go up and down
+        switching = true;
+        StartCoroutine(SwitchAnimation());
+    }
+
+    IEnumerator SwitchAnimation () {
+        Vector3 raisedPos = transform.InverseTransformPoint(this.gameObject.transform.position);
+        Vector3 loweredPos = new Vector3(0, 0, 0); // Move it down
+        float speed = 2;
+        float delta = speed * Time.deltaTime;
+        Debug.LogFormat("Delta: {0}", delta);
+
+        Vector3 move;
+        // Lower the turret
+        while (delta < 1)
+        {
+            move = Vector3.MoveTowards(raisedPos, loweredPos, delta);
+            this.gameObject.transform.position = transform.TransformPoint(move);
+            yield return null;
+        }
+
+        //yield return new WaitForSeconds(3);
+
+        // Raise the turret back up
+        while (delta < 1)
+        {
+            move = Vector3.MoveTowards(loweredPos, raisedPos, delta);
+            this.gameObject.transform.position = transform.TransformPoint(move);
+            yield return null;
+        }
+
+        switching = false;
     }
 
     public void TurnTurretAnimation () {

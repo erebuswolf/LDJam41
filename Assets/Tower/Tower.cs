@@ -45,9 +45,17 @@ public class Tower : MonoBehaviour {
         turret.SwitchShootingModeAnimation();
         shootingEnabled = true;
     }
-	
+
+	void Update() {
+	}
+
 	// Update is called once per frame
 	void FixedUpdate () {
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            ChangeShootingMode(mode);
+        }
         Monster target = FindTarget();
         if (target) {
             turret.TrackTarget(target);
