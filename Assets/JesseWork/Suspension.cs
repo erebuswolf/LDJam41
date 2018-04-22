@@ -101,10 +101,10 @@ public class Suspension : MonoBehaviour {
         foreach (Transform t in ShockLocations) {
             CompressionPoint cP;
             float dist = GetGroundCollision(t.position, out cP);
-            lastCompressionPoints.Add(cP);
             if (dist == float.MaxValue) {
                 continue;
             }
+            lastCompressionPoints.Add(cP);
             float springForce = Mathf.Min(SpringConst / (dist * dist), MaxSpringForce);
             myBody.AddForceAtPosition(springForce * (transform.localToWorldMatrix * Vector3.up), t.position);
         }
@@ -135,27 +135,30 @@ public class Suspension : MonoBehaviour {
         ForceVector.Normalize();
 
         Vector3 localVel = transform.worldToLocalMatrix * myBody.velocity;
+        // If wheels aren't touching the ground we can't drive.
+        bool applyNoForces = lastCompressionPoints.Count == 0;
 
         float force = 40 * linearInput;
         ForceVector *= force;
-        if (linearInput != 0) {
+        if (linearInput != 0 && !applyNoForces) {
             //Debug.LogWarningFormat("vel mult {0} {1}", myBody.velocity.magnitude, 1 - (Mathf.Clamp(myBody.velocity.sqrMagnitude, 0, maxVel * maxVel) / (maxVel * maxVel)));
             myBody.AddForce(ForceVector, ForceMode.Acceleration);
         }
         float normVel = Mathf.Abs(localVel.z / 50f);
         playerData.SetSpeedForUI(normVel + Random.Range(normVel-(normVel*.02f), normVel + (normVel * .02f))-normVel);
 
-        if (angularInput != 0) {
+        if (angularInput != 0 && !applyNoForces) {
             if ((transform.worldToLocalMatrix * myBody.velocity).z < -5) {
                 angularInput = -angularInput;
             }
             float torque = angularInput*3;
             myBody.AddRelativeTorque(new Vector3(0, torque * Mathf.Max(.5f ,1/(1+ Mathf.Abs(localVel.z))), 0), ForceMode.Acceleration);
         }
-        
-        Vector3 rightVel = localVel;
-        rightVel.Scale(Vector3.right);
-        myBody.AddRelativeForce(-rightVel * SkidDamping);
+        if (!applyNoForces) {
+            Vector3 rightVel = localVel;
+            rightVel.Scale(Vector3.right);
+            myBody.AddRelativeForce(-rightVel * SkidDamping);
+        }
     }
 
     private void OnCollisionEnter(Collision collision) {
