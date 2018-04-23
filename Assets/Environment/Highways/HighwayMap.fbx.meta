@@ -100,6 +100,23 @@ ModelImporter:
     100184: LeftCurveUp
     100186: RightCurveUp
     100188: StraightFlat
+    100190: Bridge
+    100192: polySurface11
+    100194: polySurface15
+    100196: polySurface16
+    100198: polySurface22
+    100200: polySurface33
+    100202: polySurface36
+    100204: polySurface47
+    100206: polySurface52
+    100208: polySurface55
+    100210: polySurface59
+    100212: polySurface6
+    100214: polySurface69
+    100216: polySurface70
+    100218: rebar
+    100220: rebar_02
+    100222: rebar_3
     400000: HighwayEndcap5
     400002: HighwayEndcap7
     400004: //RootNode
@@ -195,6 +212,23 @@ ModelImporter:
     400184: LeftCurveUp
     400186: RightCurveUp
     400188: StraightFlat
+    400190: Bridge
+    400192: polySurface11
+    400194: polySurface15
+    400196: polySurface16
+    400198: polySurface22
+    400200: polySurface33
+    400202: polySurface36
+    400204: polySurface47
+    400206: polySurface52
+    400208: polySurface55
+    400210: polySurface59
+    400212: polySurface6
+    400214: polySurface69
+    400216: polySurface70
+    400218: rebar
+    400220: rebar_02
+    400222: rebar_3
     2100000: Highway_Lambert
     2300000: HighwayEndcap5
     2300002: HighwayEndcap7
@@ -289,6 +323,23 @@ ModelImporter:
     2300180: JumpTakeoff
     2300182: LeftCurveUp
     2300184: RightCurveUp
+    2300186: Bridge
+    2300188: polySurface11
+    2300190: polySurface15
+    2300192: polySurface16
+    2300194: polySurface22
+    2300196: polySurface33
+    2300198: polySurface36
+    2300200: polySurface47
+    2300202: polySurface52
+    2300204: polySurface55
+    2300206: polySurface59
+    2300208: polySurface6
+    2300210: polySurface69
+    2300212: polySurface70
+    2300214: rebar
+    2300216: rebar_02
+    2300218: rebar_3
     3300000: HighwayEndcap5
     3300002: HighwayEndcap7
     3300004: HW_intersection_3way5
@@ -382,6 +433,23 @@ ModelImporter:
     3300180: JumpTakeoff
     3300182: LeftCurveUp
     3300184: RightCurveUp
+    3300186: Bridge
+    3300188: polySurface11
+    3300190: polySurface15
+    3300192: polySurface16
+    3300194: polySurface22
+    3300196: polySurface33
+    3300198: polySurface36
+    3300200: polySurface47
+    3300202: polySurface52
+    3300204: polySurface55
+    3300206: polySurface59
+    3300208: polySurface6
+    3300210: polySurface69
+    3300212: polySurface70
+    3300214: rebar
+    3300216: rebar_02
+    3300218: rebar_3
     4300000: HW_intersection_3way8
     4300002: HW_straight_flat76
     4300004: HW_straight_flat75
@@ -475,6 +543,23 @@ ModelImporter:
     4300180: HW_straight_flat72
     4300182: HW_straight_flat239
     4300184: HW_straight_flat197
+    4300186: polySurface22
+    4300188: polySurface59
+    4300190: polySurface55
+    4300192: rebar
+    4300194: polySurface70
+    4300196: polySurface15
+    4300198: polySurface11
+    4300200: polySurface6
+    4300202: polySurface16
+    4300204: polySurface47
+    4300206: polySurface52
+    4300208: polySurface36
+    4300210: rebar_02
+    4300212: polySurface33
+    4300214: Bridge
+    4300216: polySurface69
+    4300218: rebar_3
   externalObjects: {}
   materials:
     importMaterials: 1
