@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a3bdb2cd68f901469e7cc149151eb49, type: 3}
-  m_Name: Post-Processing Profile
+  m_Name: Mickey Post-Processing Profile
   m_EditorClassIdentifier: 
   debugViews:
     m_Enabled: 1
@@ -25,22 +25,22 @@ MonoBehaviour:
         motionVectorsResolution: 24
         motionVectorsAmplitude: 64
   fog:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
-      excludeSkybox: 1
+      excludeSkybox: 0
   antialiasing:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
-      method: 1
+      method: 0
       fxaaSettings:
         preset: 2
       taaSettings:
-        jitterSpread: 0.8
-        sharpen: 0.2
-        stationaryBlending: 0.9
-        motionBlending: 0.3
+        jitterSpread: 0.75
+        sharpen: 0.3
+        stationaryBlending: 0.95
+        motionBlending: 0.85
   ambientOcclusion:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       intensity: 1
       radius: 0.3
@@ -71,15 +71,15 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 0
     m_Settings:
-      focusDistance: 5.23
-      aperture: 6.8
-      focalLength: 75
+      focusDistance: 10
+      aperture: 5.6
+      focalLength: 50
       useCameraFov: 0
-      kernelSize: 0
+      kernelSize: 1
   motionBlur:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
-      shutterAngle: 185
+      shutterAngle: 270
       sampleCount: 10
       frameBlending: 0
   eyeAdaptation:
@@ -100,13 +100,13 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.05
-        threshold: 1.5
+        intensity: 1
+        threshold: 1
         softKnee: 0.5
         radius: 4
         antiFlicker: 1
       lensDirt:
-        texture: {fileID: 2800000, guid: a2960ffde020f27409e070d92fb2e00b, type: 3}
+        texture: {fileID: 0}
         intensity: 3
   colorGrading:
     m_Enabled: 1
@@ -120,16 +120,16 @@ MonoBehaviour:
         neutralWhiteLevel: 5.3
         neutralWhiteClip: 10
       basic:
-        postExposure: 0.7
-        temperature: 0
+        postExposure: 0
+        temperature: 2.3
         tint: 0
         hueShift: 0
-        saturation: 1.19
-        contrast: 1.1
+        saturation: 1
+        contrast: 0.977
       channelMixer:
-        red: {x: 1, y: 0, z: -0.06}
+        red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
-        blue: {x: 0, y: 0, z: 1.1}
+        blue: {x: 0, y: 0, z: 1}
         currentEditingChannel: 0
       colorWheels:
         mode: 1
@@ -281,7 +281,7 @@ MonoBehaviour:
       lut: {fileID: 0}
       contribution: 1
   chromaticAberration:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       spectralTexture: {fileID: 0}
       intensity: 0.1
