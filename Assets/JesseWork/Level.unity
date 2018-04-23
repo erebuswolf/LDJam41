@@ -241,6 +241,10 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 1687535092}
+    - target: {fileID: 1346342302986088, guid: 8a125ebdf6ee2e04d841af9ab0b51b16, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a125ebdf6ee2e04d841af9ab0b51b16, type: 2}
   m_IsPrefabParent: 0
@@ -11092,6 +11096,11 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300128, guid: f9ad719b66dbf4e4a966f7bea750bdcb, type: 3}
+--- !u!4 &968498978 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4507777237008740, guid: d17309516ca692347b08e15b70ed3ebc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1793074965}
 --- !u!1 &975195423
 GameObject:
   m_ObjectHideFlags: 0
@@ -14646,7 +14655,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4347080274807846, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.19
       objectReference: {fileID: 0}
     - target: {fileID: 4347080274807846, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
       propertyPath: m_LocalPosition.z
@@ -14671,6 +14680,10 @@ Prefab:
     - target: {fileID: 4347080274807846, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507777237008740, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4.11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
@@ -19107,7 +19120,7 @@ Prefab:
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 802674564}
+      objectReference: {fileID: 968498978}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee985453b38c77b4d8928fe757535425, type: 2}
   m_IsPrefabParent: 0
