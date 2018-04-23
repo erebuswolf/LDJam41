@@ -7,10 +7,22 @@ public class StoryManager : MonoBehaviour {
     [SerializeField] Explosion explosion;
     [SerializeField] LightPulse lightPulse;
 
+    [SerializeField] AudioSource IntroMusic;
+    [SerializeField] AudioSource MusicLoop;
+
+
+    IEnumerator MusicRoutine() {
+        yield return new WaitForSeconds(32);
+        IntroMusic.Play();
+        MusicLoop.PlayScheduled(AudioSettings.dspTime + IntroMusic.clip.length);
+
+    }
+
     int pulseCount = 0;
     // Use this for initialization
     void Start () {
         StartCoroutine(PlaySoundsInARow());
+        StartCoroutine(MusicRoutine());
     }
 
     IEnumerator PlaySoundsInARow() {
