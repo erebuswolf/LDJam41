@@ -28,7 +28,30 @@ public class MonsterSpawner : MonoBehaviour {
     [SerializeField]
     private Reactor target;
 
+    [SerializeField]
+    private AudioSource FirstWave;
 
+    [SerializeField]
+    private AudioSource FastWave;
+
+    [SerializeField]
+    private AudioSource AnotherWave;
+
+    [SerializeField]
+    private AudioSource AnotherWaveV2;
+
+    [SerializeField]
+    private AudioSource AntiairWave;
+
+    [SerializeField]
+    private AudioSource LastWave;
+
+    [SerializeField]
+    private AudioSource NoEndToThem;
+
+    [SerializeField]
+    private AudioSource NoEndToThemV2;
+    
     [SerializeField]
     private Transform intermediateTarget;
 
@@ -56,7 +79,39 @@ public class MonsterSpawner : MonoBehaviour {
     IEnumerator SpawnRoutine() {
         for (int waveNumber = 0; waveNumber < MonsterCounts.Length; waveNumber++) {
             // Wait the time between the waves
-            yield return new WaitForSeconds(BetweenWaveDelays[waveNumber]);
+            if (waveNumber == 0) {
+                yield return new WaitForSeconds(BetweenWaveDelays[waveNumber]);
+            } else {
+                yield return new WaitForSeconds(BetweenWaveDelays[waveNumber] / 2f);
+            }
+
+            switch(waveNumber) {
+                case 0:
+                    FirstWave.Play();
+                    break;
+                case 1:
+                    if(Random.Range(0,1) <.5) {
+                        AnotherWave.Play();
+                    } else {
+                        AnotherWaveV2.Play();
+                    }
+                    break;
+                case 2:
+                    if (Random.Range(0, 1) < .5) {
+                        NoEndToThem.Play();
+                    } else {
+                        NoEndToThemV2.Play();
+                    }
+                    break;
+                case 3:
+                    LastWave.Play();
+                    break;
+                default:
+                    break;
+            }
+            if (waveNumber != 0) {
+                yield return new WaitForSeconds(BetweenWaveDelays[waveNumber] / 2f);
+            }
             currentWave = waveNumber;
 
             for (int monsterNumber = 0; monsterNumber < MonsterCounts[waveNumber]; monsterNumber++) {
