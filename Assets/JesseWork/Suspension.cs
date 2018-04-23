@@ -134,8 +134,11 @@ public class Suspension : MonoBehaviour {
 
         return avgNormal;
     }
-	
-    public void ApplyBoost(Vector3 direction, float strength) {
+
+    public void ApplyFixedBoost(Vector3 direction, float strength) {
+        myBody.AddRelativeForce(direction * strength, ForceMode.Acceleration);
+    }
+    public void ApplyBoost(float strength) {
         myBody.AddRelativeForce(Vector3.forward * strength, ForceMode.Acceleration);
     }
 
@@ -157,6 +160,7 @@ public class Suspension : MonoBehaviour {
             //Debug.LogWarningFormat("vel mult {0} {1}", myBody.velocity.magnitude, 1 - (Mathf.Clamp(myBody.velocity.sqrMagnitude, 0, maxVel * maxVel) / (maxVel * maxVel)));
             myBody.AddForce(ForceVector, ForceMode.Acceleration);
         }
+
         float normVel = Mathf.Abs(localVel.z / 50f);
         playerData.SetSpeedForUI(normVel + Random.Range(normVel-(normVel*.02f), normVel + (normVel * .02f))-normVel);
 

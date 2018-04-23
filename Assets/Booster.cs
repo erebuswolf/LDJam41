@@ -6,7 +6,9 @@ public class Booster : MonoBehaviour {
     [SerializeField] private Vector3 boostDirection;
 
     [SerializeField] private float boostMag;
-
+    
+    [SerializeField] private bool FixedBoost;
+    
     // Use this for initialization
     void Start () {
 		
@@ -22,7 +24,11 @@ public class Booster : MonoBehaviour {
         Suspension car = other.GetComponent<Suspension>();
         if (car != null) {
             Debug.LogWarning("car applying boost");
-            car.ApplyBoost(boostDirection.normalized, boostMag);
+            if(FixedBoost) {
+                car.ApplyFixedBoost(boostDirection.normalized, boostMag);
+            } else {
+                car.ApplyFixedBoost(boostMag);
+            }
         }
     }
 }
