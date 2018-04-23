@@ -18,7 +18,7 @@ public class Speedometer : MonoBehaviour {
 	void Update () {
         float speed = data.GetSpeedForUI();
         if (speed > 1 || speed < 0) {
-            Debug.LogWarning("INVALIDE SPEED GIVEN TO UI");
+            speed = 1 + Random.Range(-0.02f, 0.02f);
         }
         float rot = minRot - (minRot - maxRot) * speed;
         needle.gameObject.transform.localRotation =  Quaternion.Euler(0,0,rot);
