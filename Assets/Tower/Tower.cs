@@ -17,7 +17,7 @@ public class Tower : MonoBehaviour {
 
     private float[] ShotDelay = new float[] { 5f, 5f, 3f };
 
-    private int[] ResourceCosts = new int[] { 100, 300, 500};
+    private int[] ResourceCosts = new int[] { 100, 300, 500 };
 
     private int[] upgradeAmmount = new int[3] { 1, 1, 1 };
     private int upgradeMax = 4;
@@ -28,12 +28,16 @@ public class Tower : MonoBehaviour {
 
     private float shootingRadius;
     private ShootingMode mode;
-    
+
     private TurretController turretController;
 
     private TowerInterface towerInterface;
 
     private MonsterSpawner monsterSpawner;
+
+    [SerializeField] private AudioSource ChargeUpSound;
+
+    private bool chargePlayed = false;
 
     // Use this for initialization
     void Start() {
@@ -48,18 +52,26 @@ public class Tower : MonoBehaviour {
         return Activated;
     }
 
-    public int [] GetResourceCosts() {
+    public int[] GetResourceCosts() {
         return ResourceCosts;
     }
 
     public void ChangeShootingMode(ShootingMode mode) {
         this.mode = mode;
-        Activated = true;
+        if (!Activated) {
+            StartCoroutine(PlayChargeUp(0f));
+            Activated = true;
+        }
         turretController.SwitchShootingModeAnimation(mode);
     }
 
     public int[] GetUpgradeStatus() {
         return upgradeAmmount;
+    }
+
+    IEnumerator PlayChargeUp(float delay) {
+        yield return new WaitForSeconds(delay);
+        ChargeUpSound.Play();
     }
 
     void Update() {
@@ -120,6 +132,8 @@ public class Tower : MonoBehaviour {
         
         t.ShootTargetAnimation(mode);
         Target.TakeDamage(mode, upgradeAmmount[(int)mode], ImpactDelay[(int)mode]);
+        chargePlayed = false;
+        StartCoroutine(PlayChargeUp(3f));
         lastTimeShot = Time.time;
     }
 
