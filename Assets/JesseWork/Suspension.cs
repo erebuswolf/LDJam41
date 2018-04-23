@@ -136,7 +136,7 @@ public class Suspension : MonoBehaviour {
     }
 
     public void ApplyFixedBoost(Vector3 direction, float strength) {
-        myBody.AddRelativeForce(direction * strength, ForceMode.Acceleration);
+        myBody.AddForce(direction.normalized * strength, ForceMode.Acceleration);
     }
     public void ApplyBoost(float strength) {
         myBody.AddRelativeForce(Vector3.forward * strength, ForceMode.Acceleration);
