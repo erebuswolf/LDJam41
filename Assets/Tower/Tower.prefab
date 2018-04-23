@@ -1351,6 +1351,8 @@ MonoBehaviour:
   stowTurretHeight: -43.7
   activeTurretIndex: -1
   nextTurretIndex: -1
+  LoweringSound: {fileID: 82117501758695808}
+  RaisingSound: {fileID: 82378359876401452}
   controllerState: 0
 --- !u!114 &114644120446859492
 MonoBehaviour:
