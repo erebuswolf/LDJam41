@@ -9,9 +9,11 @@ public class Turret : MonoBehaviour {
     [SerializeField] private bool lowered;
 
     [SerializeField] AudioSource LaserShot;
+    FireBulletAt bullet;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+        bullet = GetComponentInChildren<FireBulletAt>();
         StartCoroutine(UpdateLookAtRoutine());
         lowered = true;
     }
@@ -53,6 +55,7 @@ public class Turret : MonoBehaviour {
     }
 
     public void ShootTargetAnimation(ShootingMode mode) {
+        bullet.ShootAt(trackedMonster.transform);
         LaserShot.Play();
     }
 }
