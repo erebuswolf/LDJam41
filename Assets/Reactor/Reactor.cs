@@ -6,15 +6,21 @@ public class Reactor : MonoBehaviour {
     [SerializeField]
     private float health;
 
+    private float startingHealth;
+
 	// Use this for initialization
 	void Start () {
-		
+        startingHealth = health;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public float GetHealthRatio() {
+        return health / startingHealth;
+    }
 
     public float GetHealth() {
         return health;

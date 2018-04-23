@@ -138,7 +138,20 @@ public class PlayerController : MonoBehaviour {
         // Update
         acceleration = thrust + brake + drag;
         speed = Mathf.Clamp((speed + dt * acceleration), - maxReverseSpeed, maxForwardSpeed);
-        rigidbody.velocity = ((speed * dt + 0.5f * acceleration * sqrdt) * transform.forward + (0.5f * skid * sqrdt) * skidDir) / dt /* rigidbody doesn't take dt */;
+
+        Vector3 fwd = new Vector3(transform.forward.x, 0.0f, transform.forward.z).normalized;
+        rigidbody.velocity = ((speed * dt + 0.5f * acceleration * sqrdt) * fwd /*+ (0.5f * skid * sqrdt) * skidDir*/) / dt /* rigidbody doesn't take dt */;
+
+        rigidbody.angularVelocity = Vector3.zero;
         transform.Rotate(new Vector3(0.0f, turnCoeff * angularInput, 0.0f));
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        Debug.LogWarningFormat("impulse {0}", collision.impulse);
+            
+        foreach (ContactPoint contact in collision.contacts) {
+            print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+        }
     }
 }

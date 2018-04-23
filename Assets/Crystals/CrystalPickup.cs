@@ -22,6 +22,8 @@ public class CrystalPickup : MonoBehaviour {
         PlayerData data = other.GetComponent<PlayerData>();
         if (data != null) {
             data.AddResources(Value);
+            gameObject.SetActive(false);
+            Debug.LogFormat("Player now has {0} crystals", data.GetResources());
         }
     }
 }

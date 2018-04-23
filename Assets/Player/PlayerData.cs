@@ -26,6 +26,10 @@ public class PlayerData : MonoBehaviour {
         return resources;
     }
 
+    public void SetSpeedForUI(float speed) {
+        this.speed = speed;
+    }
+
     // Returns a float 0-1 for the speed to set in the ui
     public float GetSpeedForUI() {
         return speed;
