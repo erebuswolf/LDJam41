@@ -1499,7 +1499,7 @@ Prefab:
     - target: {fileID: 114741638454241148, guid: 10eb13eb4c8f5b247970c47ed6492dff,
         type: 2}
       propertyPath: boostMag
-      value: 120
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 65296322161039430, guid: 10eb13eb4c8f5b247970c47ed6492dff,
         type: 2}
@@ -3431,7 +3431,7 @@ Prefab:
     - target: {fileID: 114741638454241148, guid: 10eb13eb4c8f5b247970c47ed6492dff,
         type: 2}
       propertyPath: boostMag
-      value: 100
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 65296322161039430, guid: 10eb13eb4c8f5b247970c47ed6492dff,
         type: 2}
