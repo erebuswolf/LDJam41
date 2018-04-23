@@ -36,7 +36,9 @@ public class Tower : MonoBehaviour {
     private MonsterSpawner monsterSpawner;
 
     [SerializeField] private AudioSource upgradeSound;
-    
+    [SerializeField] private AudioSource interactSound;
+    [SerializeField] private AudioSource leaveSound;
+
     // Use this for initialization
     void Start() {
         shootingRadius = radiusBase;
@@ -155,6 +157,7 @@ public class Tower : MonoBehaviour {
         PlayerData data = other.GetComponent<PlayerData>();
         if (data) {
             towerInterface.SetActiveTower(this);
+            interactSound.Play();
         }
     }
 
@@ -163,6 +166,7 @@ public class Tower : MonoBehaviour {
         
         if (data) {
             towerInterface.SetActiveTower(null);
+            leaveSound.Play();
         }
     }
     
@@ -171,15 +175,14 @@ public class Tower : MonoBehaviour {
         if (upgradeAmmount[(int)modeToUpgrade] >= upgradeMax) {
             return;
         }
-
-        upgradeSound.Play();
-
+        
         int cost = ResourceCosts[upgradeAmmount[(int)modeToUpgrade] - 1];
         int resources = data.GetResources();
         if (resources >= cost) {
             upgradeAmmount[(int)modeToUpgrade]++;
             data.SpendResources(cost);
-         //   Debug.LogFormat("Player bought upgrade for {0} crystals and upgrade amt is now {1}", cost, upgradeAmmount[(int)modeToUpgrade]);
+            upgradeSound.Play();
+            //   Debug.LogFormat("Player bought upgrade for {0} crystals and upgrade amt is now {1}", cost, upgradeAmmount[(int)modeToUpgrade]);
         } else {
            // Debug.LogFormat("Player did not have enough money, cost {0} only had {1}", cost, resources);
 
