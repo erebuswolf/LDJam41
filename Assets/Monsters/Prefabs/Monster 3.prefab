@@ -45,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1679366778813376
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
   particlesPrefab: {fileID: 198083200931462206, guid: 0d8133bed5fa10c4994ac6b6772b43d6,
     type: 2}
   Damage: 1
-  Health: 1
+  Health: 3
   Slowed: 0
   SlowedStartTime: 0
   SlowTimeLength: 1
