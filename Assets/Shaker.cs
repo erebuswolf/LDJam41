@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Shaker : MonoBehaviour {
 
-    [SerializeField] private float shakeDuration = 0.2f;
-    [SerializeField] private float shakeMagnitude = 2.0f;
+    private float orginalZ;
 
-    public IEnumerator ShakeCoroutine()
+    private void Start() {
+        orginalZ = transform.eulerAngles.z;
+    }
+
+    public void Shake(float duration, float mag) {
+        StopAllCoroutines();
+        StartCoroutine(ShakeCoroutine(duration ,mag));
+    }
+
+    public IEnumerator ShakeCoroutine(float shakeDuration, float shakeMagnitude)
     {
         float elapsed = 0.0f;
-        float orginalZ = transform.eulerAngles.z;
-
         while (elapsed < shakeDuration)
         {
             float z = Random.Range(-1f, 1f) * shakeMagnitude;

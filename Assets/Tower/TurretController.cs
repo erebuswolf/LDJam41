@@ -13,6 +13,9 @@ public class TurretController : MonoBehaviour {
 
     [SerializeField] private int activeTurretIndex;
     [SerializeField] private int nextTurretIndex;
+    
+    [SerializeField] private AudioSource LoweringSound;
+    [SerializeField] private AudioSource RaisingSound;
 
     [SerializeField] private ControllerState controllerState;
 
@@ -43,6 +46,8 @@ public class TurretController : MonoBehaviour {
             // We have reached our goal state
             controllerState = ControllerState.RAISING;
             activeTurretIndex = nextTurretIndex;
+            LoweringSound.Stop();
+            RaisingSound.Play();
             nextTurretIndex = -1;
         } else {
 
@@ -101,12 +106,15 @@ public class TurretController : MonoBehaviour {
         if (activeTurretIndex == -1) {
             activeTurretIndex = (int)mode;
             controllerState = ControllerState.RAISING;
+            RaisingSound.Play();
         } else {
             nextTurretIndex = (int)mode;
             switch (controllerState) {
                 case ControllerState.RAISING:
                 case ControllerState.IDLE:
                     controllerState = ControllerState.LOWERING;
+                    RaisingSound.Stop();
+                    LoweringSound.Play();
                     break;
                 default:
                     break;

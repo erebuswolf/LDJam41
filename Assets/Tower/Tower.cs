@@ -34,6 +34,8 @@ public class Tower : MonoBehaviour {
     private TowerInterface towerInterface;
 
     private MonsterSpawner monsterSpawner;
+
+    [SerializeField] private AudioSource upgradeSound;
     
     // Use this for initialization
     void Start() {
@@ -169,6 +171,9 @@ public class Tower : MonoBehaviour {
         if (upgradeAmmount[(int)modeToUpgrade] >= upgradeMax) {
             return;
         }
+
+        upgradeSound.Play();
+
         int cost = ResourceCosts[upgradeAmmount[(int)modeToUpgrade] - 1];
         int resources = data.GetResources();
         if (resources >= cost) {
