@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no" ?>
 <!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
-<project xmlns="http://audacity.sourceforge.net/xml/" projname="crystalpickup_data" version="1.3.0" audacityversion="2.1.2" sel0="0.0000000000" sel1="3.9009523810" vpos="80" h="0.0000000000" zoom="43.0664062500" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="crystalpickup_data" version="1.3.0" audacityversion="2.1.2" sel0="0.0000000000" sel1="1.2456566077" vpos="96" h="0.0000000000" zoom="43.0664062500" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
 	<tags/>
 	<wavetrack name="Audio Track" channel="0" linked="1" mute="1" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
 		<waveclip offset="0.00000000">
@@ -24,9 +24,9 @@
 	</wavetrack>
 	<wavetrack name="Audio Track" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
 		<waveclip offset="0.00000000">
-			<sequence maxsamples="262144" sampleformat="262159" numsamples="151891">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="54933">
 				<waveblock start="0">
-					<simpleblockfile filename="e00009dc.au" len="151891" min="-0.816659" max="0.855389" rms="0.061785"/>
+					<simpleblockfile filename="e0000f20.au" len="54933" min="-0.818773" max="0.678526" rms="0.069521"/>
 				</waveblock>
 			</sequence>
 			<envelope numpoints="0"/>
@@ -34,9 +34,9 @@
 	</wavetrack>
 	<wavetrack name="Audio Track" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
 		<waveclip offset="0.00000000">
-			<sequence maxsamples="262144" sampleformat="262159" numsamples="151891">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="54933">
 				<waveblock start="0">
-					<simpleblockfile filename="e0000a9d.au" len="151891" min="-0.795102" max="0.857291" rms="0.061223"/>
+					<simpleblockfile filename="e0000eb2.au" len="54933" min="-0.819349" max="0.685836" rms="0.068906"/>
 				</waveblock>
 			</sequence>
 			<envelope numpoints="0"/>
