@@ -8,7 +8,10 @@ public class Booster : MonoBehaviour {
     [SerializeField] private float boostMag;
     
     [SerializeField] private bool FixedBoost;
-    
+
+
+    [SerializeField] private bool ForceMiddle;
+
     // Use this for initialization
     void Start () {
 		
@@ -28,6 +31,10 @@ public class Booster : MonoBehaviour {
                 car.ApplyFixedBoost(boostDirection.normalized, boostMag);
             } else {
                 car.ApplyBoost(boostMag);
+            }
+            if (ForceMiddle) {
+                float xOffset = (transform.worldToLocalMatrix * car.gameObject.transform.position).x;
+                car.ApplyFixedBoost(transform.localToWorldMatrix * Vector3.right, (boostMag / 100) * (xOffset / 10));
             }
         }
     }
