@@ -27,7 +27,7 @@ public class Booster : MonoBehaviour {
             if(FixedBoost) {
                 car.ApplyFixedBoost(boostDirection.normalized, boostMag);
             } else {
-//                car.ApplyFixedBoost(boostMag);
+                car.ApplyBoost(boostMag);
             }
         }
     }

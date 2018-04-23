@@ -14,7 +14,7 @@ public class MainCameraFollow : MonoBehaviour
         initialOffset = transform.position - target.position;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         var desiredPosition = target.position + target.TransformVector(initialOffset);
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref vel, smoothness);
