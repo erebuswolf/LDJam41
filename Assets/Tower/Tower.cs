@@ -19,8 +19,8 @@ public class Tower : MonoBehaviour {
 
     private int[] ResourceCosts = new int[] { 1, 2, 3 };
 
-    private int[] upgradeAmmount = new int[3] { 0, 0, 0 };
-    private int upgradeMax = 3;
+    private int[] upgradeAmmount = new int[3] { 1, 1, 1 };
+    private int upgradeMax = 4;
 
     private float lastTimeShot = 0;
 

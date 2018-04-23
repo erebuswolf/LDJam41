@@ -39,7 +39,14 @@ public class Suspension : MonoBehaviour {
 
     [SerializeField] private Transform LeftSideShock;
     [SerializeField] private Transform RightSideShock;
+
+    [SerializeField] private bool airborn;
     
+    [SerializeField] private float GroundDrag = 1.5f;
+    [SerializeField] private float GroundADrag = 1.5f;
+    [SerializeField] private float AirDrag = .05f;
+    [SerializeField] private float AirADrag = .05f;
+
     private List<CompressionPoint> lastCompressionPoints = new List<CompressionPoint>();
 
     private float GetGroundCollision(Vector3 position, out CompressionPoint compressionPoint) {
@@ -127,7 +134,14 @@ public class Suspension : MonoBehaviour {
 
         return avgNormal;
     }
-	
+
+    public void ApplyFixedBoost(Vector3 direction, float strength) {
+        myBody.AddRelativeForce(direction * strength, ForceMode.Acceleration);
+    }
+    public void ApplyBoost(float strength) {
+        myBody.AddRelativeForce(Vector3.forward * strength, ForceMode.Acceleration);
+    }
+
     private void HandleInput() {
         // Input & State
         float linearInput = Input.GetAxis("Vertical");
@@ -139,26 +153,25 @@ public class Suspension : MonoBehaviour {
         ForceVector.Normalize();
 
         Vector3 localVel = transform.worldToLocalMatrix * myBody.velocity;
-        // If wheels aren't touching the ground we can't drive.
-        bool applyNoForces = lastCompressionPoints.Count == 0;
 
         float force = ForceMultiplier * linearInput;
         ForceVector *= force;
-        if (linearInput != 0 && !applyNoForces) {
+        if (linearInput != 0 && !airborn) {
             //Debug.LogWarningFormat("vel mult {0} {1}", myBody.velocity.magnitude, 1 - (Mathf.Clamp(myBody.velocity.sqrMagnitude, 0, maxVel * maxVel) / (maxVel * maxVel)));
             myBody.AddForce(ForceVector, ForceMode.Acceleration);
         }
+
         float normVel = Mathf.Abs(localVel.z / 50f);
         playerData.SetSpeedForUI(normVel + Random.Range(normVel-(normVel*.02f), normVel + (normVel * .02f))-normVel);
 
-        if (angularInput != 0 && !applyNoForces) {
+        if (angularInput != 0 && !airborn) {
             if ((transform.worldToLocalMatrix * myBody.velocity).z < -5) {
                 angularInput = -angularInput;
             }
             float torque = angularInput* TorqMultiplier;
             myBody.AddRelativeTorque(new Vector3(0, torque * Mathf.Max(MinTorqSupresser, 1/(1+ Mathf.Abs(localVel.z))), 0), ForceMode.Acceleration);
         }
-        if (!applyNoForces) {
+        if (!airborn) {
             Vector3 rightVel = localVel;
             rightVel.Scale(Vector3.right);
             myBody.AddRelativeForce(-rightVel * SkidDamping);
@@ -175,9 +188,21 @@ public class Suspension : MonoBehaviour {
         }
     }
 
+    // If wheels aren't touching the ground we can't drive.
+    private void calculateAirborn() {
+        airborn = lastCompressionPoints.Count == 0;
+    }
+
+    private void updateGroundAirPhysics() {
+        myBody.drag = airborn ? AirDrag : GroundDrag;
+        myBody.angularDrag = airborn ? AirADrag : GroundADrag;
+    }
+
     // Update is called once per frame
     void FixedUpdate () {
         UpdateShocks();
+        calculateAirborn();
+        updateGroundAirPhysics();
         //UpdateSideShocks();
         HandleInput();
     }
