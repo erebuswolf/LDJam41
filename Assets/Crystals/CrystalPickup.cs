@@ -22,6 +22,12 @@ public class CrystalPickup : MonoBehaviour {
         PlayerData data = other.GetComponent<PlayerData>();
         if (data != null) {
             data.AddResources(Value);
+            Debug.LogFormat("Player now has {0} crystals", data.GetResources());
         }
     }
+
+	private void OnTriggerExit(Collider other)
+	{
+		// Crystal should disappear once you leave it
+	}
 }

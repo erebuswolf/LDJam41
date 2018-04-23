@@ -17,7 +17,7 @@ public class Tower : MonoBehaviour {
 
     private float[] ShotDelay = new float[] { 5f, 5f, 5f };
 
-    private int[] ResourceCosts = new int[] { 1, 2, 3 };
+    private int[] ResourceCosts = new int[] { 200, 500, 800 };
 
     private int[] upgradeAmmount = new int[3] { 1, 1, 1 };
     private int upgradeMax = 4;
@@ -136,6 +136,7 @@ public class Tower : MonoBehaviour {
         if ((resources >= cost) && (upgradeAmmount[(int)modeToUpgrade] < upgradeMax)) {
             upgradeAmmount[(int)modeToUpgrade]++;
             data.SpendResources(cost);
+            Debug.LogFormat("Player bought upgrade for {0} crystals and upgrade amt is now {1}", cost, upgradeAmmount[(int)modeToUpgrade]);
         }
     }
 
