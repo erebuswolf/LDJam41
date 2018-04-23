@@ -14683,6 +14683,21 @@ Prefab:
       propertyPath: Priority
       value: 23
       objectReference: {fileID: 0}
+    - target: {fileID: 114057397666269138, guid: d17309516ca692347b08e15b70ed3ebc,
+        type: 2}
+      propertyPath: HighPitch
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114057397666269138, guid: d17309516ca692347b08e15b70ed3ebc,
+        type: 2}
+      propertyPath: LowPitch
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114057397666269138, guid: d17309516ca692347b08e15b70ed3ebc,
+        type: 2}
+      propertyPath: SpeedToRevs
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d17309516ca692347b08e15b70ed3ebc, type: 2}
   m_IsPrefabParent: 0
