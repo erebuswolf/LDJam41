@@ -1,0 +1,207 @@
+fileFormatVersion: 2
+guid: df18d7182c4a652458393f9ae0512f37
+timeCreated: 1524481018
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: back_bn
+    100002: body_bn
+    100004: chin_be
+    100006: Crawler_lowpoly1
+    100008: //RootNode
+    100010: jaw_bn
+    100012: left_ankle_bn
+    100014: left_elbow_bn
+    100016: left_finger_be
+    100018: left_hip_bn
+    100020: left_knee_bn
+    100022: left_shoulder_bn
+    100024: left_toe_be
+    100026: left_wrist_bn
+    100028: neck_base_bn
+    100030: nose_be
+    100032: pelvis_bn
+    100034: right_ankle_bn
+    100036: right_elbow_bn
+    100038: right_finger_be
+    100040: right_hip_bn
+    100042: right_knee_bn
+    100044: right_shoulder_bn
+    100046: right_toe_be
+    100048: right_wrist_bn
+    100050: root
+    100052: skull_base_bn
+    100054: tail_base_be
+    100056: tail_base_bn
+    400000: back_bn
+    400002: body_bn
+    400004: chin_be
+    400006: Crawler_lowpoly1
+    400008: //RootNode
+    400010: jaw_bn
+    400012: left_ankle_bn
+    400014: left_elbow_bn
+    400016: left_finger_be
+    400018: left_hip_bn
+    400020: left_knee_bn
+    400022: left_shoulder_bn
+    400024: left_toe_be
+    400026: left_wrist_bn
+    400028: neck_base_bn
+    400030: nose_be
+    400032: pelvis_bn
+    400034: right_ankle_bn
+    400036: right_elbow_bn
+    400038: right_finger_be
+    400040: right_hip_bn
+    400042: right_knee_bn
+    400044: right_shoulder_bn
+    400046: right_toe_be
+    400048: right_wrist_bn
+    400050: root
+    400052: skull_base_bn
+    400054: tail_base_be
+    400056: tail_base_bn
+    2100000: lambert1
+    4300000: Crawler_lowpoly1
+    7400000: Walking
+    7400002: Death
+    9500000: //RootNode
+    13700000: Crawler_lowpoly1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walking
+      takeName: Take 001
+      firstFrame: 30
+      lastFrame: 70
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 135
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
