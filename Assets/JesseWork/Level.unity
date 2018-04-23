@@ -514,6 +514,16 @@ Prefab:
       propertyPath: lightPulse
       value: 
       objectReference: {fileID: 1489442848}
+    - target: {fileID: 82622917821952044, guid: 6afad53cfaba4534da5f47c8a90a258f,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.674
+      objectReference: {fileID: 0}
+    - target: {fileID: 82364319855930782, guid: 6afad53cfaba4534da5f47c8a90a258f,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.674
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6afad53cfaba4534da5f47c8a90a258f, type: 2}
   m_IsPrefabParent: 0
