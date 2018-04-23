@@ -963,7 +963,7 @@ MonoBehaviour:
   MonsterPrefabs:
   - {fileID: 114967645629739242, guid: bb156eb2a3bb88a4fa6b6b532716f0a2, type: 2}
   - {fileID: 114669158546018952, guid: 8a125ebdf6ee2e04d841af9ab0b51b16, type: 2}
-  - {fileID: 114967645629739242, guid: bb156eb2a3bb88a4fa6b6b532716f0a2, type: 2}
+  - {fileID: 114398739261140332, guid: 9bb94db7f33c8f4459fb5b3632afae6d, type: 2}
   - {fileID: 114668020874284590, guid: fa040d3a0777fb34cb87fa0e20f7714c, type: 2}
   MonsterCounts: 08000000080000000800000001000000
   BetweenMonsterDelays:

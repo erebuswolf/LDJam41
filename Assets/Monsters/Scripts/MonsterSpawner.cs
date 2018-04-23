@@ -78,6 +78,14 @@ public class MonsterSpawner : MonoBehaviour {
 
     IEnumerator SpawnRoutine() {
         for (int waveNumber = 0; waveNumber < MonsterCounts.Length; waveNumber++) {
+            if (waveNumber == 3) {
+                if (Random.Range(0, 1) < .5) {
+                    AnotherWave.Play();
+                } else {
+                    AnotherWaveV2.Play();
+                }
+            }
+
             // Wait the time between the waves
             if (waveNumber == 0) {
                 yield return new WaitForSeconds(BetweenWaveDelays[waveNumber]);
@@ -97,11 +105,7 @@ public class MonsterSpawner : MonoBehaviour {
                     }
                     break;
                 case 2:
-                    if (Random.Range(0, 1) < .5) {
-                        NoEndToThem.Play();
-                    } else {
-                        NoEndToThemV2.Play();
-                    }
+                    AntiairWave.Play();
                     break;
                 case 3:
                     LastWave.Play();
