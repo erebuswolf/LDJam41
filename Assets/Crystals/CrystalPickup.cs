@@ -13,6 +13,8 @@ public class CrystalPickup : MonoBehaviour
 
     private bool childIsInactive = false;
 
+    [SerializeField] private AudioSource pickupSound;
+
     // Use this for initialization
     void Start()
     {
@@ -32,6 +34,7 @@ public class CrystalPickup : MonoBehaviour
         if ((data != null) && !childIsInactive)
         {
             data.AddResources(Value);
+            pickupSound.Play();
             StartCoroutine(RespawnCrystal());
         }
     }
