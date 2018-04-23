@@ -17,23 +17,21 @@ public class Tower : MonoBehaviour {
 
     private float[] ShotDelay = new float[] { 5f, 5f, 5f };
 
-    private int[] ResourceCosts = new int[] { 200, 500, 800 };
+    private int[] ResourceCosts = new int[] { 100, 300, 500};
 
     private int[] upgradeAmmount = new int[3] { 1, 1, 1 };
     private int upgradeMax = 4;
 
     private float lastTimeShot = 0;
 
+    private bool Activated = false;
+
     private float shootingRadius;
     private ShootingMode mode;
+    
+    private TurretController turretController;
 
-    private bool Activated;
-
-    private bool CarInteracting;
-
-    [SerializeField]
-    private TurretController turret;
-
+    private TowerInterface towerInterface;
 
     private MonsterSpawner monsterSpawner;
 
@@ -42,24 +40,31 @@ public class Tower : MonoBehaviour {
         shootingRadius = radiusBase;
         mode = ShootingMode.ShootingModeNormal;
         monsterSpawner = FindObjectOfType<MonsterSpawner>();
+        towerInterface = FindObjectOfType<TowerInterface>();
+        turretController = GetComponentInChildren<TurretController>();
+    }
 
-        //TODO: take this function call out so they start out disabled;
-        ActivateTower();
+    public bool getActivated() {
+        return Activated;
     }
 
     public void ChangeShootingMode(ShootingMode mode) {
         this.mode = mode;
-        turret.SwitchShootingModeAnimation(mode);
+        Activated = true;
+        turretController.SwitchShootingModeAnimation(mode);
+    }
+
+    public int[] GetUpgradeStatus() {
+        return upgradeAmmount;
     }
 
     void Update() {
-        HandleCarInteractions();
     }
 
     // Update is called once per frame
     void FixedUpdate() {
         Monster target = FindTarget();
-        Turret t = turret.getActiveTurret();
+        Turret t = turretController.getActiveTurret();
         if (t == null) {
             return;
         }
@@ -69,11 +74,7 @@ public class Tower : MonoBehaviour {
             ShootTarget(target);
         }
     }
-
-    public void ActivateTower() {
-        Activated = true;
-    }
-
+    
     Monster FindTarget() {
         List<Monster> monsters = monsterSpawner.GetTargetableMonsters();
         float bestDist = -1;
@@ -97,11 +98,19 @@ public class Tower : MonoBehaviour {
         return target;
     }
 
+    public bool NoActiveTurret() {
+        return turretController.getActiveTurret() == null;
+    }
+
+    public ShootingMode GetShootingMode() {
+        return mode;
+    }
+
     void ShootTarget(Monster Target) {
-        Turret t = turret.getActiveTurret();
+        Turret t = turretController.getActiveTurret();
 
         if (Time.time - lastTimeShot < ShotDelay[(int)mode] ||
-            !Target.CanBeHit(mode) || turret.isSwitching() || t == null) {
+            !Target.CanBeHit(mode) || turretController.isSwitching() || t == null) {
             return;
         }
         
@@ -113,7 +122,7 @@ public class Tower : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         PlayerData data = other.GetComponent<PlayerData>();
         if (data) {
-            CarInteracting = true;
+            towerInterface.SetActiveTower(this);
         }
     }
 
@@ -121,53 +130,24 @@ public class Tower : MonoBehaviour {
         PlayerData data = other.GetComponent<PlayerData>();
         
         if (data) {
-            CarInteracting = false;
+            towerInterface.SetActiveTower(null);
         }
     }
-
-    private bool isShiftHeld() {
-        return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-    }
-
-    private void BuyUpgrade (ShootingMode modeToUpgrade) {
+    
+    public void BuyUpgrade (ShootingMode modeToUpgrade) {
         PlayerData data = FindObjectOfType<PlayerData>();
-        int cost = ResourceCosts[(int)modeToUpgrade];
+        if (upgradeAmmount[(int)modeToUpgrade] >= upgradeMax) {
+            return;
+        }
+        int cost = ResourceCosts[upgradeAmmount[(int)modeToUpgrade] - 1];
         int resources = data.GetResources();
-        if ((resources >= cost) && (upgradeAmmount[(int)modeToUpgrade] < upgradeMax)) {
+        if (resources >= cost) {
             upgradeAmmount[(int)modeToUpgrade]++;
             data.SpendResources(cost);
             Debug.LogFormat("Player bought upgrade for {0} crystals and upgrade amt is now {1}", cost, upgradeAmmount[(int)modeToUpgrade]);
-        }
-    }
+        } else {
+            Debug.LogFormat("Player did not have enough money, cost {0} only had {1}", cost, resources);
 
-    private void HandleCarInteractions() {
-        if (!CarInteracting) {
-            return;
-        }
-
-        ShootingMode modeToModify;
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            modeToModify = ShootingMode.ShootingModeNormal;
-            if (isShiftHeld()) {
-                BuyUpgrade(modeToModify);
-            } else {
-                ChangeShootingMode(modeToModify);
-            }
-        } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            modeToModify = ShootingMode.ShootingModeSlow;
-            if (isShiftHeld()) {
-                BuyUpgrade(modeToModify);
-            } else {
-                ChangeShootingMode(modeToModify);
-            }
-        } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            modeToModify = ShootingMode.ShootingModeAntiAir;
-            if (isShiftHeld()) {
-                BuyUpgrade(modeToModify);
-            } else {
-                ChangeShootingMode(modeToModify);
-            }
         }
     }
 }

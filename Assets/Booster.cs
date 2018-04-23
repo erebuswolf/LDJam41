@@ -26,7 +26,6 @@ public class Booster : MonoBehaviour {
         // If other is the player have them set their last spawn point.
         Suspension car = other.GetComponent<Suspension>();
         if (car != null) {
-            Debug.LogWarning("car applying boost");
             if(FixedBoost) {
                 car.ApplyFixedBoost(boostDirection.normalized, boostMag);
             } else {
