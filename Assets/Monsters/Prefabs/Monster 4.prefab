@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1054165425328712
 GameObject:
   m_ObjectHideFlags: 1
@@ -1600,6 +1600,7 @@ MonoBehaviour:
   - 0.5
   Rising: 0
   HeadHeight: {fileID: 4029749259808356}
+  LastMonster: 1
 --- !u!114 &114922925775572932
 MonoBehaviour:
   m_ObjectHideFlags: 1

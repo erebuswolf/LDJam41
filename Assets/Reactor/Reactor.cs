@@ -31,7 +31,7 @@ public class Reactor : MonoBehaviour {
         // A game manager or something else should query the health state of this object.
         // And manage game loss.
         if (health <= 0) {
-            Debug.LogWarning("Game is lost!");
+            FindObjectOfType<EndGameIU>().Lose();
         }
     }
 }
