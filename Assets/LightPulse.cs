@@ -38,7 +38,7 @@ public class LightPulse : MonoBehaviour {
             light.intensity = 0;
             yield return new WaitForSeconds(.06f);
         }
-        light.intensity = 5;
+        light.intensity = .97f;
     }
     public void Strobe() {
 

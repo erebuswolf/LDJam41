@@ -19,7 +19,7 @@ public class Footstepper : MonoBehaviour {
     public void CheckPlayerCameraShake() {
         float dist = (PlayerCam.transform.position - this.transform.position).magnitude;
         if (dist < 500) {
-            PlayerCam.Shake(2, .1f * Mathf.Clamp(500/ dist, 0, 20)/3f);
+            PlayerCam.Shake(2, .1f * Mathf.Clamp(500/ dist, 0, 20)/1.5f);
         }
     }
 
