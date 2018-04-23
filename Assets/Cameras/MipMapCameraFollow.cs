@@ -12,7 +12,7 @@ public class MipMapCameraFollow : MonoBehaviour
         initialOffset = transform.position - target.position;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         var desiredPosition = target.position + initialOffset;
         transform.position = desiredPosition;

@@ -165,7 +165,7 @@ public class Suspension : MonoBehaviour {
         playerData.SetSpeedForUI(normVel + Random.Range(normVel-(normVel*.02f), normVel + (normVel * .02f))-normVel);
 
         if (angularInput != 0 && !airborn) {
-            if ((transform.worldToLocalMatrix * myBody.velocity).z < -5) {
+            if (linearInput < 0) {
                 angularInput = -angularInput;
             }
             float torque = angularInput* TorqMultiplier;
