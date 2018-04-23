@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4354424041078946}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HeadTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4373442521563974}
   - component: {fileID: 114967645629739242}
   - component: {fileID: 54928974911816286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Monster 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4784628947559492}
   - component: {fileID: 33566795224608274}
   - component: {fileID: 23205468790459456}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MeshObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 33801447271048122}
   - component: {fileID: 23829444096791864}
   - component: {fileID: 64211915377804998}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CrawlerTest (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,11 +264,11 @@ MonoBehaviour:
   Health: 2
   Slowed: 0
   SlowedStartTime: 0
-  SlowTimeLength: 1
+  SlowTimeLength: 5
   SlowSpeedMult: 0.5
   DamageMultIndex:
   - 1
-  - 0.5
+  - 0.1
   - 0
   Rising: 0
   HeadHeight: {fileID: 4354424041078946}

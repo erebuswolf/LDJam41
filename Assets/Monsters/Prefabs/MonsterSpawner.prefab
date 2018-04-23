@@ -59,13 +59,13 @@ MonoBehaviour:
   MonsterCounts: 08000000080000000800000001000000
   BetweenMonsterDelays:
   - 3
-  - 4
+  - 6
   - 3
   - 3
   BetweenWaveDelays:
   - 30
-  - 15
-  - 15
-  - 15
+  - 30
+  - 30
+  - 30
   currentWave: 0
   target: {fileID: 0}

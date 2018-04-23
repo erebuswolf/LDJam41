@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4667637351050736}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HeadTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 65668411198869646}
   - component: {fileID: 114669158546018952}
   - component: {fileID: 54265260575811330}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Monster 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4175249735161542}
   - component: {fileID: 33103430224934966}
   - component: {fileID: 23014940138906954}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MeshObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,11 +190,11 @@ MonoBehaviour:
   Health: 4
   Slowed: 0
   SlowedStartTime: 0
-  SlowTimeLength: 1
+  SlowTimeLength: 5
   SlowSpeedMult: 0.5
   DamageMultIndex:
   - 1
-  - 1
+  - 2
   - 0
   Rising: 0
   HeadHeight: {fileID: 4667637351050736}

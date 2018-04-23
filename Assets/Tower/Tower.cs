@@ -13,9 +13,9 @@ public class Tower : MonoBehaviour {
     private const int radiusSlow = 150;
     private const int radiusAntiAir = 300;
 
-    private float[] ImpactDelay = new float[] { .3f, .3f, .3f };
+    private float[] ImpactDelay = new float[] { .01f, .01f, .01f };
 
-    private float[] ShotDelay = new float[] { 5f, 5f, 3f };
+    private float[] ShotDelay = new float[] { 5f, 2f, 3f };
 
     private int[] ResourceCosts = new int[] { 100, 300, 500 };
 
@@ -34,11 +34,7 @@ public class Tower : MonoBehaviour {
     private TowerInterface towerInterface;
 
     private MonsterSpawner monsterSpawner;
-
-    [SerializeField] private AudioSource ChargeUpSound;
-
-    private bool chargePlayed = false;
-
+    
     // Use this for initialization
     void Start() {
         shootingRadius = radiusBase;
@@ -59,7 +55,6 @@ public class Tower : MonoBehaviour {
     public void ChangeShootingMode(ShootingMode mode) {
         this.mode = mode;
         if (!Activated) {
-            StartCoroutine(PlayChargeUp(0f));
             Activated = true;
         }
         turretController.SwitchShootingModeAnimation(mode);
@@ -68,12 +63,7 @@ public class Tower : MonoBehaviour {
     public int[] GetUpgradeStatus() {
         return upgradeAmmount;
     }
-
-    IEnumerator PlayChargeUp(float delay) {
-        yield return new WaitForSeconds(delay);
-        ChargeUpSound.Play();
-    }
-
+    
     void Update() {
     }
 
@@ -103,9 +93,15 @@ public class Tower : MonoBehaviour {
             Vector3 monsterPosition = m.transform.position;
             monsterPosition.y = 0;
             float dist = (monsterPosition - thisPosition).magnitude;
-            if (dist <= shootingRadius && bestDist == -1 || dist < bestDist) {
-                target = m;
-                bestDist = dist;
+            if (dist <= shootingRadius) {
+
+                if (mode == ShootingMode.ShootingModeSlow && m.isSlowed()) {
+                    dist += 500;
+                }
+                if(bestDist == -1 || dist < bestDist) {
+                    target = m;
+                    bestDist = dist;
+                }
             }
         }
         if (bestDist == -1) {
@@ -131,9 +127,25 @@ public class Tower : MonoBehaviour {
         }
         
         t.ShootTargetAnimation(mode);
+        if (mode == ShootingMode.ShootingModeSlow) {
+            float slowMult = .75f;
+            switch (upgradeAmmount[(int)ShootingMode.ShootingModeSlow]) {
+                case 1:
+                    slowMult = .5f;
+                    break;
+                case 2:
+                    slowMult = .3f;
+                    break;
+                case 3:
+                    slowMult = .2f;
+                    break;
+                case 4:
+                    slowMult = .1f;
+                    break;
+            }
+            Target.ApplySlow(slowMult);
+        }
         Target.TakeDamage(mode, upgradeAmmount[(int)mode], ImpactDelay[(int)mode]);
-        chargePlayed = false;
-        StartCoroutine(PlayChargeUp(3f));
         lastTimeShot = Time.time;
     }
 
@@ -162,9 +174,9 @@ public class Tower : MonoBehaviour {
         if (resources >= cost) {
             upgradeAmmount[(int)modeToUpgrade]++;
             data.SpendResources(cost);
-            Debug.LogFormat("Player bought upgrade for {0} crystals and upgrade amt is now {1}", cost, upgradeAmmount[(int)modeToUpgrade]);
+         //   Debug.LogFormat("Player bought upgrade for {0} crystals and upgrade amt is now {1}", cost, upgradeAmmount[(int)modeToUpgrade]);
         } else {
-            Debug.LogFormat("Player did not have enough money, cost {0} only had {1}", cost, resources);
+           // Debug.LogFormat("Player did not have enough money, cost {0} only had {1}", cost, resources);
 
         }
     }

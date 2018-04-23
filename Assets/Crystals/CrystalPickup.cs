@@ -32,7 +32,6 @@ public class CrystalPickup : MonoBehaviour
         if ((data != null) && !childIsInactive)
         {
             data.AddResources(Value);
-            Debug.LogFormat("Player now has {0} crystals", data.GetResources());
             StartCoroutine(RespawnCrystal());
         }
     }
