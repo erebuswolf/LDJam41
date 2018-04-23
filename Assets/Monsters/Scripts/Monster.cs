@@ -137,6 +137,9 @@ public class Monster : MonoBehaviour {
     }
 
     private void DeathAnimation() {
+        if (animator == null ) {
+            return;
+        }
         animator.SetTrigger("AtReactor");
         Alive = false;
         //var effect = GameObject.Instantiate(particlesPrefab, transform.position, particlesPrefab.transform.rotation);
