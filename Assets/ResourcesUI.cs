@@ -14,7 +14,7 @@ public class ResourcesUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        text.text = ""+playerData.GetResources();
+        text.text = ""+playerData.GetResources() + " CR";
 
     }
 }

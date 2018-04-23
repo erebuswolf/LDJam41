@@ -67,8 +67,13 @@ public class Monster : MonoBehaviour {
         }
     }
 
-    public void ApplySlow() {
+    public bool isSlowed() {
+        return Slowed;
+    }
+
+    public void ApplySlow(float mult) {
         Slowed = true;
+        SlowSpeedMult = mult;
         SlowedStartTime = Time.time;
     }
 

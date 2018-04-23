@@ -9,15 +9,15 @@ public enum ShootingMode {
 }
 
 public class Tower : MonoBehaviour {
-    private const int radiusBase = 150;
-    private const int radiusSlow = 175;
-    private const int radiusAntiAir = 200;
+    private const int radiusBase = 180;
+    private const int radiusSlow = 150;
+    private const int radiusAntiAir = 300;
 
-    private float[] ImpactDelay = new float[] { .3f, .3f, .3f };
+    private float[] ImpactDelay = new float[] { .01f, .01f, .01f };
 
-    private float[] ShotDelay = new float[] { 5f, 5f, 5f };
+    private float[] ShotDelay = new float[] { 5f, 2f, 3f };
 
-    private int[] ResourceCosts = new int[] { 100, 300, 500};
+    private int[] ResourceCosts = new int[] { 100, 300, 500 };
 
     private int[] upgradeAmmount = new int[3] { 1, 1, 1 };
     private int upgradeMax = 4;
@@ -28,13 +28,13 @@ public class Tower : MonoBehaviour {
 
     private float shootingRadius;
     private ShootingMode mode;
-    
+
     private TurretController turretController;
 
     private TowerInterface towerInterface;
 
     private MonsterSpawner monsterSpawner;
-
+    
     // Use this for initialization
     void Start() {
         shootingRadius = radiusBase;
@@ -48,16 +48,22 @@ public class Tower : MonoBehaviour {
         return Activated;
     }
 
+    public int[] GetResourceCosts() {
+        return ResourceCosts;
+    }
+
     public void ChangeShootingMode(ShootingMode mode) {
         this.mode = mode;
-        Activated = true;
+        if (!Activated) {
+            Activated = true;
+        }
         turretController.SwitchShootingModeAnimation(mode);
     }
 
     public int[] GetUpgradeStatus() {
         return upgradeAmmount;
     }
-
+    
     void Update() {
     }
 
@@ -87,9 +93,15 @@ public class Tower : MonoBehaviour {
             Vector3 monsterPosition = m.transform.position;
             monsterPosition.y = 0;
             float dist = (monsterPosition - thisPosition).magnitude;
-            if (dist <= shootingRadius && bestDist == -1 || dist < bestDist) {
-                target = m;
-                bestDist = dist;
+            if (dist <= shootingRadius) {
+
+                if (mode == ShootingMode.ShootingModeSlow && m.isSlowed()) {
+                    dist += 500;
+                }
+                if(bestDist == -1 || dist < bestDist) {
+                    target = m;
+                    bestDist = dist;
+                }
             }
         }
         if (bestDist == -1) {
@@ -115,6 +127,24 @@ public class Tower : MonoBehaviour {
         }
         
         t.ShootTargetAnimation(mode);
+        if (mode == ShootingMode.ShootingModeSlow) {
+            float slowMult = .75f;
+            switch (upgradeAmmount[(int)ShootingMode.ShootingModeSlow]) {
+                case 1:
+                    slowMult = .5f;
+                    break;
+                case 2:
+                    slowMult = .3f;
+                    break;
+                case 3:
+                    slowMult = .2f;
+                    break;
+                case 4:
+                    slowMult = .1f;
+                    break;
+            }
+            Target.ApplySlow(slowMult);
+        }
         Target.TakeDamage(mode, upgradeAmmount[(int)mode], ImpactDelay[(int)mode]);
         lastTimeShot = Time.time;
     }
@@ -144,9 +174,9 @@ public class Tower : MonoBehaviour {
         if (resources >= cost) {
             upgradeAmmount[(int)modeToUpgrade]++;
             data.SpendResources(cost);
-            Debug.LogFormat("Player bought upgrade for {0} crystals and upgrade amt is now {1}", cost, upgradeAmmount[(int)modeToUpgrade]);
+         //   Debug.LogFormat("Player bought upgrade for {0} crystals and upgrade amt is now {1}", cost, upgradeAmmount[(int)modeToUpgrade]);
         } else {
-            Debug.LogFormat("Player did not have enough money, cost {0} only had {1}", cost, resources);
+           // Debug.LogFormat("Player did not have enough money, cost {0} only had {1}", cost, resources);
 
         }
     }
