@@ -9,13 +9,13 @@ public enum ShootingMode {
 }
 
 public class Tower : MonoBehaviour {
-    private const int radiusBase = 150;
-    private const int radiusSlow = 175;
-    private const int radiusAntiAir = 200;
+    private const int radiusBase = 180;
+    private const int radiusSlow = 150;
+    private const int radiusAntiAir = 300;
 
     private float[] ImpactDelay = new float[] { .3f, .3f, .3f };
 
-    private float[] ShotDelay = new float[] { 5f, 5f, 5f };
+    private float[] ShotDelay = new float[] { 5f, 5f, 3f };
 
     private int[] ResourceCosts = new int[] { 100, 300, 500};
 
@@ -46,6 +46,10 @@ public class Tower : MonoBehaviour {
 
     public bool getActivated() {
         return Activated;
+    }
+
+    public int [] GetResourceCosts() {
+        return ResourceCosts;
     }
 
     public void ChangeShootingMode(ShootingMode mode) {

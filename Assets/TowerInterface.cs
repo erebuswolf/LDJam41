@@ -63,8 +63,13 @@ public class TowerInterface : MonoBehaviour {
             return;
         }
         int[] upgradeStatus = activeTower.GetUpgradeStatus();
-        for(int i = 0; i < LevelTexts.Count; i++) {
-            LevelTexts[i].text = "Level\n"+ (upgradeStatus[i] < 4 ? ""+(upgradeStatus[i] - 1) : "MAX");
+        int[] costs = activeTower.GetResourceCosts();
+        for (int i = 0; i < LevelTexts.Count; i++) {
+            string cost = "-";
+            if (upgradeStatus[i] <4) {
+                cost = costs[upgradeStatus[i]-1]+"";
+            }
+            LevelTexts[i].text = cost + " CR\nLevel\n" + (upgradeStatus[i] < 4 ? ""+(upgradeStatus[i]) : "MAX");
         }
     }
 
