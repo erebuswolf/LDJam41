@@ -18,8 +18,11 @@ public class Monster : MonoBehaviour {
     [SerializeField] bool Rising;
     [SerializeField] private Transform HeadHeight;
 
-    private Rigidbody myBody;
 
+    [SerializeField] private bool LastMonster;
+
+    private Rigidbody myBody;
+    private bool DealtDamage;
     private Animator animator;
 
     private void Start() {
@@ -113,7 +116,10 @@ public class Monster : MonoBehaviour {
         if (other.gameObject == target.gameObject)
         {
             DeathAnimation();
-            target.RecieveHit(Damage);
+            if (!DealtDamage) {
+                DealtDamage = true;
+                target.RecieveHit(Damage);
+            }
         }
     }
 
@@ -124,6 +130,9 @@ public class Monster : MonoBehaviour {
     IEnumerator DeathRoutine(float delay) {
         yield return new WaitForSeconds(delay);
         DeathAnimation();
+        if (LastMonster) {
+            yield break;
+        }
         yield return new WaitForSeconds(4f);
         float startTime = Time.time;
         float dt = Time.time - startTime;
@@ -142,6 +151,9 @@ public class Monster : MonoBehaviour {
         }
         animator.SetTrigger("AtReactor");
         Alive = false;
+        if (LastMonster) {
+            FindObjectOfType<EndGameIU>().Win();
+        }
         //var effect = GameObject.Instantiate(particlesPrefab, transform.position, particlesPrefab.transform.rotation);
         //effect.GetComponent<ParticleSystem>().Play();
         //Destroy(effect, 5.0f);
