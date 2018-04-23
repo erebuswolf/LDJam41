@@ -499,7 +499,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1513805726932938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.99, z: 0}
+  m_LocalPosition: {x: 0, y: 4.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4347080274807846}
@@ -659,7 +659,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: cc4ea93c74304b34292a48f45ab115c4, type: 3}
+  - {fileID: 2100000, guid: 27428bcfa69257c44a867e5b52caa681, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1041,7 +1041,7 @@ MonoBehaviour:
   SideSuspensionDist: 2
   SideSpringConst: 20
   SideMaxSpringForce: 20
-  ForceMultiplier: 40
+  ForceMultiplier: 42
   TorqMultiplier: 3
   MinTorqSupresser: 0.66
   LeftSideShock: {fileID: 4660739526638162}
