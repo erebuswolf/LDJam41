@@ -18,6 +18,15 @@ public class Monster : MonoBehaviour {
     [SerializeField] bool Rising;
     [SerializeField] private Transform HeadHeight;
 
+    private Rigidbody myBody;
+
+    private Animator animator;
+
+    private void Start() {
+        animator = GetComponentInChildren<Animator>();
+        myBody = GetComponentInChildren<Rigidbody>();
+    }
+
     private void FixedUpdate()
     {
         UpdateMovement();
@@ -51,7 +60,7 @@ public class Monster : MonoBehaviour {
     }
 
     private void UpdateMovement() {
-        if(Rising) {
+        if(Rising || !Alive) {
             return;
         }
 
@@ -115,13 +124,24 @@ public class Monster : MonoBehaviour {
     IEnumerator DeathRoutine(float delay) {
         yield return new WaitForSeconds(delay);
         DeathAnimation();
+        yield return new WaitForSeconds(4f);
+        float startTime = Time.time;
+        float dt = Time.time - startTime;
+        Vector3 deadpos = this.transform.position;
+        Vector3 goalpos = this.transform.position + Vector3.down*50;
+        while (5 > dt) {
+            dt = Time.time - startTime;
+            this.transform.position = Vector3.Lerp(deadpos, goalpos, dt / 5f);
+            yield return null;
+        }
     }
 
     private void DeathAnimation() {
+        animator.SetTrigger("AtReactor");
         Alive = false;
-        var effect = GameObject.Instantiate(particlesPrefab, transform.position, particlesPrefab.transform.rotation);
-        effect.GetComponent<ParticleSystem>().Play();
-        Destroy(effect, 5.0f);
-        gameObject.SetActive(false);
+        //var effect = GameObject.Instantiate(particlesPrefab, transform.position, particlesPrefab.transform.rotation);
+        //effect.GetComponent<ParticleSystem>().Play();
+        //Destroy(effect, 5.0f);
+        //gameObject.SetActive(false);
     }
 }
