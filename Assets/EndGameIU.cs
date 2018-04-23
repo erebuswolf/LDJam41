@@ -7,6 +7,10 @@ public class EndGameIU : MonoBehaviour {
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject lossScreen;
 
+    [SerializeField] private AudioSource winSound;
+    [SerializeField] private AudioSource loseSound;
+
+
     // Use this for initialization
     void Start () {
 		
@@ -19,10 +23,12 @@ public class EndGameIU : MonoBehaviour {
 
     public void Lose() {
         lossScreen.active = true;
+        loseSound.Play();
     }
 
     public void Win() {
         winScreen.active = true;
+        winSound.Play();
     }
 
     public void PlayAgain() {

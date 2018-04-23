@@ -44,17 +44,25 @@ public class Monster : MonoBehaviour {
         this.target = target;
     }
 
-    public void StartMovement() {
+    public void StartMovement(Vector3 intermediatTarget) {
         this.gameObject.SetActive(true);
         Rising = true;
         Alive = true;
-        StartCoroutine(FakeRisingComplete());
+        StartCoroutine(FakeRisingComplete(intermediatTarget));
     }
 
     // Coroutine to fake out the animation callback for the rising
     // animation completing.
-    IEnumerator FakeRisingComplete() {
-        yield return new WaitForSeconds(1);
+    IEnumerator FakeRisingComplete(Vector3 intermediateTarget) {
+        Vector3 toTargetDir = (intermediateTarget - transform.position);
+
+        while(toTargetDir.magnitude > 1) {
+            toTargetDir.Normalize();
+            transform.position += speed * Time.deltaTime * toTargetDir * (Slowed ? SlowSpeedMult : 1f);
+            yield return null;
+            toTargetDir = (intermediateTarget - transform.position);
+        }
+        transform.position.Scale(new Vector3(1, 0, 1));
         Rising = false;
     }
 

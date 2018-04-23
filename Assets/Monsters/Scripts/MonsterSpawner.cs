@@ -27,7 +27,11 @@ public class MonsterSpawner : MonoBehaviour {
 
     [SerializeField]
     private Reactor target;
-    
+
+
+    [SerializeField]
+    private Transform intermediateTarget;
+
     // Use this for initialization
     void Start() {
         currentWave = 0;
@@ -58,7 +62,7 @@ public class MonsterSpawner : MonoBehaviour {
             for (int monsterNumber = 0; monsterNumber < MonsterCounts[waveNumber]; monsterNumber++) {
                 // Wait the time between monsters
                 yield return new WaitForSeconds(BetweenMonsterDelays[waveNumber]);
-                Monsters[waveNumber][monsterNumber].StartMovement();
+                Monsters[waveNumber][monsterNumber].StartMovement(intermediateTarget.position);
             }
             // don't spawn the next monster wave till the previous wave is eliminated.
             bool monstersAlive = true;
