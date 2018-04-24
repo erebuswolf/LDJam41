@@ -13,6 +13,7 @@ public class FireBulletAt : MonoBehaviour {
 
         // Fire particle impact here.
         this.transform.localPosition = Vector3.zero;
+        this.transform.localRotation = Quaternion.identity;
     }
 
     public void ShootAt(Vector3 target) {

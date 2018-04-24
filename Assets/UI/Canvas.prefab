@@ -2812,7 +2812,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: HUMANITY IS SAVE!
+  m_Text: HUMANITY IS SAVED!
 --- !u!114 &114979547790466578
 MonoBehaviour:
   m_ObjectHideFlags: 1
