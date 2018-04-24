@@ -121,6 +121,10 @@ public class Monster : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        if (target == null) {
+            Debug.LogWarning("TARGET NOT SET!!!");
+            return;
+        }
         if (other.gameObject == target.gameObject)
         {
             DeathAnimation();
