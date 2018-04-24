@@ -149,10 +149,10 @@ public class Monster : MonoBehaviour {
         float startTime = Time.time;
         float dt = Time.time - startTime;
         Vector3 deadpos = this.transform.position;
-        Vector3 goalpos = this.transform.position + Vector3.down*50;
-        while (5 > dt) {
+        Vector3 goalpos = this.transform.position + Vector3.down*500;
+        while (50 > dt) {
             dt = Time.time - startTime;
-            this.transform.position = Vector3.Lerp(deadpos, goalpos, dt / 5f);
+            this.transform.position = Vector3.Lerp(deadpos, goalpos, dt / 50f);
             yield return null;
         }
     }

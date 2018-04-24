@@ -8,6 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/JesseWork/Level.unity
     guid: 09c421c0f01459d46969e65b7df333eb
-  - enabled: 1
+  - enabled: 0
     path: Assets/MasterChanges/Level.unity
     guid: f20fd242bb7b94564869bd70be1770a1

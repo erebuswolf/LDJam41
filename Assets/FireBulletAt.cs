@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class FireBulletAt : MonoBehaviour {
 
-    IEnumerator ShootAtRoutine(Transform target) {
-        while((this.transform.position - target.transform.position).magnitude > 10) {
+    IEnumerator ShootAtRoutine(Vector3 target) {
+        while((this.transform.position - target).magnitude > 10) {
             yield return null;
-            this.transform.position = Vector3.MoveTowards(this.transform.position, target.transform.position, 10);
-            this.transform.LookAt(target.transform.position);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, target, 10);
+            this.transform.LookAt(target);
         }
 
         // Fire particle impact here.
         this.transform.localPosition = Vector3.zero;
     }
 
-    public void ShootAt(Transform target) {
+    public void ShootAt(Vector3 target) {
         StopAllCoroutines();
         StartCoroutine(ShootAtRoutine(target));
     }

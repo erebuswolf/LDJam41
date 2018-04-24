@@ -55,7 +55,7 @@ public class Turret : MonoBehaviour {
     }
 
     public void ShootTargetAnimation(ShootingMode mode) {
-        bullet.ShootAt(trackedMonster.transform);
+        bullet.ShootAt(trackedMonster.GetHeadPosition());
         LaserShot.Play();
     }
 }
