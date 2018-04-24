@@ -39,8 +39,9 @@ namespace UnityEngine.PostProcessing
         {
             get
             {
+                return false;/*
                 return model.enabled
-                       && !context.interrupted;
+                       && !context.interrupted;*/
             }
         }
 
