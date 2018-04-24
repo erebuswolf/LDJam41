@@ -1,22 +1,24 @@
 fileFormatVersion: 2
-guid: 4fdd375363dc62640994d1d7c159c3f2
-timeCreated: 1524508602
+guid: ed78f6a23e744014ba40516244dd5668
+timeCreated: 1524527924
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: flyerLowpoly:Group13844
     400000: //RootNode
-    2100000: lambert1
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: CementSphere
+    400002: flyerLowpoly:Group13844
+    2100000: flyerLowpoly_defaultMat1
+    2300000: flyerLowpoly:Group13844
+    3300000: flyerLowpoly:Group13844
+    4300000: flyerLowpoly:Group13844
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: 49a1c6f03faa51b4a8232bbaac1dc225, type: 2}
+      name: flyerLowpoly_defaultMat1
+    second: {fileID: 2100000, guid: f84b42fc6f2e84c4aae616f7401f9cd6, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -71,7 +73,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

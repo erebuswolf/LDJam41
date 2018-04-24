@@ -560,7 +560,12 @@ ModelImporter:
     4300214: Bridge
     4300216: polySurface69
     4300218: rebar_3
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Highway_Lambert
+    second: {fileID: 2100000, guid: 49a1c6f03faa51b4a8232bbaac1dc225, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
