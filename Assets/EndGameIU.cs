@@ -10,7 +10,7 @@ public class EndGameIU : MonoBehaviour {
     [SerializeField] private AudioSource winSound;
     [SerializeField] private AudioSource loseSound;
 
-
+    bool lost = false;
     // Use this for initialization
     void Start () {
 		
@@ -22,13 +22,22 @@ public class EndGameIU : MonoBehaviour {
 	}
 
     public void Lose() {
+        lost = true;
         lossScreen.active = true;
         loseSound.Play();
     }
 
-    public void Win() {
+    IEnumerator winRoutine() {
+        yield return new WaitForSeconds(.02f);
+        if (lost) {
+            yield break;
+        }
         winScreen.active = true;
         winSound.Play();
+    }
+
+    public void Win() {
+        StartCoroutine(winRoutine());
     }
 
     public void PlayAgain() {
