@@ -161,11 +161,8 @@ public class Monster : MonoBehaviour {
         if (animator == null ) {
             return;
         }
-        animator.SetTrigger("AtReactor");
         Alive = false;
-        if (LastMonster) {
-            FindObjectOfType<EndGameIU>().Win();
-        }
+        animator.SetTrigger("AtReactor");
         //var effect = GameObject.Instantiate(particlesPrefab, transform.position, particlesPrefab.transform.rotation);
         //effect.GetComponent<ParticleSystem>().Play();
         //Destroy(effect, 5.0f);

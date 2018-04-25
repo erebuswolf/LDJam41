@@ -136,6 +136,7 @@ public class MonsterSpawner : MonoBehaviour {
                 yield return null;
             }
         }
+        FindObjectOfType<EndGameIU>().Win();
     }
 
     public List<Monster> GetTargetableMonsters() {

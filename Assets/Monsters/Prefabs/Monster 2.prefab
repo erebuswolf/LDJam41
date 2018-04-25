@@ -1584,12 +1584,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Alive: 0
-  speed: 20
+  speed: 30
   target: {fileID: 0}
   particlesPrefab: {fileID: 198083200931462206, guid: 0d8133bed5fa10c4994ac6b6772b43d6,
     type: 2}
-  Damage: 2
-  Health: 4
+  Damage: 1
+  Health: 5
   Slowed: 0
   SlowedStartTime: 0
   SlowTimeLength: 5

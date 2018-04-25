@@ -369,7 +369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1621287622517374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Alive: 0
-  speed: 20
+  speed: 40
   target: {fileID: 0}
   particlesPrefab: {fileID: 198083200931462206, guid: 0d8133bed5fa10c4994ac6b6772b43d6,
     type: 2}
